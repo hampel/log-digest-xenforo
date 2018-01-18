@@ -1,0 +1,29 @@
+<mail:subject>
+	{{ phrase('logdigest_email_subject', {
+		'type': $type,
+		'board': $xf.options.boardTitle
+	}) }}
+</mail:subject>
+
+{{ phrase('logdigest_recent_logs', {
+	'type': '<a href="' . link_type('admin', 'canonical:' . $route) . '">' . $type . '</a>',
+	'board': '<a href="' . link('canonical:index') . '">' . $xf.options.boardTitle . '</a>'
+}) }}<br />
+<br />
+<xf:if is="$logs is not empty">
+	<xf:foreach loop="$logs" value="$entry">
+		<hr />
+		<h2>{$entry.exception_type}</h2>
+		<b>Message</b>: {$entry.message}<br />
+		<b>File</b>: <span style="font-family: monospace;">{$entry.filename}:{$entry.line|number}</span><br />
+		<b>{{ phrase('generated_by') }}</b>: {{ $entry.User ? '<a href="' . link_type('admin', 'canonical:users/edit', $entry.User) . '">' . $entry.User.username . '</a>' : phrase('unknown_account') }}<br />
+		<b>Log date</b>: {{ date_time($entry.exception_date) }}<br />
+		<div style="text-align: center;"><a href="{{ link_type('admin', 'canonical:' . $route, $entry) }}" class="button">View this error</a></div>
+		<h2>{{ phrase('stack_trace') }}</h2>
+		<pre style="font-family: monospace; word-wrap: break-word; white-space: pre-wrap;">{$entry.trace_string}</pre>
+		<h2>{{ phrase('request_state') }}</h2>
+		{{ dump_simple($entry.request_state) }}<br />
+	</xf:foreach>
+<xf:else />
+	{{ phrase('logdigest_no_logs_found') }}
+</xf:if>

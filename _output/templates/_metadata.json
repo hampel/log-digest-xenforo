@@ -1,0 +1,12 @@
+{
+    "admin/logdigest_tools_test_logdigest.html": {
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "b2afea7c1551eb43e5bb87b9fbdd46a9"
+    },
+    "email/logdigest_server_error.html": {
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "d196527d04afb871cb3a5404d5d9d02d"
+    }
+}

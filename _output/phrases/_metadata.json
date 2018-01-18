@@ -1,0 +1,86 @@
+{
+    "admin_navigation.testLogDigest.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "3a1fdd8de36feac9119a50ab673332a8"
+    },
+    "logdigest_all_tests_passed.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "e55222a4cbb7e5dcf5e9eec80a96b78b"
+    },
+    "logdigest_email_subject.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "5cbbaf33cb70d43a2acb935b952a0230"
+    },
+    "logdigest_generate_test_exception.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "6f40549d89aa62c1d35bc4fbaf00e6c8"
+    },
+    "logdigest_invalid_email_address.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "59e4904d4366fab35a8282f418e699de"
+    },
+    "logdigest_no_logs_found.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "a67a8fdaed151029aac1f5d2e77eea35"
+    },
+    "logdigest_options.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "dae8ace18bdcbcc6ae5aece263e14fe8"
+    },
+    "logdigest_recent_logs.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "519ada4e15b5d49d39af81292e900cd7"
+    },
+    "logdigest_send_test_email.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "8545deab2278a9b98533528d56dea0b8"
+    },
+    "logdigest_test.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "0cbc6611f5540bd0809a388dc95a615b"
+    },
+    "logdigest_test_email_hint.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "79cc1fea116c04a2d0098842842dcacc"
+    },
+    "logdigest_test_exception_hint.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "f4a53fdd8eb77358052e2cb75820aa38"
+    },
+    "logdigest_test_logdigest.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "3a1fdd8de36feac9119a50ab673332a8"
+    },
+    "logdigest_this_test_could_not_be_run.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "92c98cc7ec1bbafc0a4a4a64c4125870"
+    }
+}
