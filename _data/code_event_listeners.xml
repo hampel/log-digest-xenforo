@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code_event_listeners>
+  <listener event_id="app_admin_setup" execute_order="10" callback_class="LogDigest\Listener" callback_method="appAdminSetup" active="1" description="Set up LogDigest test factory for admin area"/>
+</code_event_listeners>

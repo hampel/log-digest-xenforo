@@ -1,1 +1,0 @@
-{name} log (last checked: {lastupdated}; last id: {lastid})

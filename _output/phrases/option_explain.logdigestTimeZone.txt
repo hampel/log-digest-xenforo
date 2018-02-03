@@ -1,1 +1,0 @@
-Dates and times of log entries will be displayed in this time zone in emails

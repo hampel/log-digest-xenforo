@@ -1,1 +1,0 @@
-These logs will have their last checked time reset so that all existing entries are candidates to be sent in the next email
