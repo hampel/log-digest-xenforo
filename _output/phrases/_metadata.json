@@ -1,9 +1,21 @@
 {
+    "admin_navigation.resetLogDigest.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "36838e04d8159c829f5ee4f6dea8515f"
+    },
     "admin_navigation.testLogDigest.txt": {
         "global_cache": false,
         "version_id": 1,
         "version_string": "0.1.0",
         "hash": "3a1fdd8de36feac9119a50ab673332a8"
+    },
+    "cron_entry.logdigestSendLogs.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "bad4f618ad4159cbce802fbab9337539"
     },
     "logdigest_all_tests_passed.txt": {
         "global_cache": false,
@@ -11,11 +23,29 @@
         "version_string": "0.1.0",
         "hash": "e55222a4cbb7e5dcf5e9eec80a96b78b"
     },
+    "logdigest_choose_logs.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "653f3155dd0ea433ee2155ef985c6f1d"
+    },
+    "logdigest_duplicate_entry.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "e7c113c872ac1ed83b0333780527c0e5"
+    },
     "logdigest_email_subject.txt": {
         "global_cache": false,
         "version_id": 1,
         "version_string": "0.1.0",
         "hash": "5cbbaf33cb70d43a2acb935b952a0230"
+    },
+    "logdigest_file.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "0b27918290ff5323bea1e3b78a9cf04e"
     },
     "logdigest_generate_test_exception.txt": {
         "global_cache": false,
@@ -28,6 +58,30 @@
         "version_id": 1,
         "version_string": "0.1.0",
         "hash": "59e4904d4366fab35a8282f418e699de"
+    },
+    "logdigest_log_date.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "d96edca3cf8bd06ab6a43a38a5478c43"
+    },
+    "logdigest_log_type_last_checked.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "bca8671d363d1a1cc8f820e7afe72790"
+    },
+    "logdigest_logs.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "b2d37ae1cedf42ff874289b721860af2"
+    },
+    "logdigest_message.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "4c2a8fe7eaf24721cc7a9f0175115bd4"
     },
     "logdigest_no_logs_found.txt": {
         "global_cache": false,
@@ -47,11 +101,35 @@
         "version_string": "0.1.0",
         "hash": "519ada4e15b5d49d39af81292e900cd7"
     },
+    "logdigest_reset.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "526d688f37a86d3c3f27d0c5016eb71d"
+    },
+    "logdigest_reset_hint.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "5155c13e71d3da34f237ee403147f761"
+    },
+    "logdigest_reset_logdigest.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "36838e04d8159c829f5ee4f6dea8515f"
+    },
     "logdigest_send_test_email.txt": {
         "global_cache": false,
         "version_id": 1,
         "version_string": "0.1.0",
         "hash": "8545deab2278a9b98533528d56dea0b8"
+    },
+    "logdigest_successfully_reset.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "405794b77b88429d1f43ffd0dcc7f347"
     },
     "logdigest_test.txt": {
         "global_cache": false,
@@ -77,10 +155,112 @@
         "version_string": "0.1.0",
         "hash": "3a1fdd8de36feac9119a50ab673332a8"
     },
+    "logdigest_test_message.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "4742b199dd03a4db705ece09369c7076"
+    },
+    "logdigest_test_prefix.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "5a9f7dc96f36389adf0a7025dc8dc746"
+    },
+    "logdigest_test_returned_false.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "4adb7fb60041bcea0bafde0a86d5c36a"
+    },
+    "logdigest_test_successfully_sent.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "43aa39bef6b6372494b3dbad5b211b47"
+    },
     "logdigest_this_test_could_not_be_run.txt": {
         "global_cache": false,
         "version_id": 1,
         "version_string": "0.1.0",
         "hash": "92c98cc7ec1bbafc0a4a4a64c4125870"
+    },
+    "logdigest_view_this_error.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "6bc84ba2a0d2420b4e356c0847ce19bc"
+    },
+    "option.logdigestDeduplicate.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "ae144bc5569954ba64c140270bb58e22"
+    },
+    "option.logdigestEmail.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "ce8ae9da5b7cd6c3df2929543a9af92d"
+    },
+    "option.logdigestFrequency.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "7cf395303ce3665a9834721d4b748e4b"
+    },
+    "option.logdigestLimit.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "362284381981bd4c3ef224426ea74e2d"
+    },
+    "option.logdigestTimeZone.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "b5726f82c1ee5c32bcbf14e50a953666"
+    },
+    "option_explain.logdigestDeduplicate.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "dc9053abfd3bc84b56ff414a69de5789"
+    },
+    "option_explain.logdigestEmail.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "7d2640a230b49b86f3f2d5d5adc87386"
+    },
+    "option_explain.logdigestFrequency.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "8196a78f98cb8ff8c674bd157427801b"
+    },
+    "option_explain.logdigestLimit.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "b168ed81965f4c3e07e479bfb751c2d0"
+    },
+    "option_explain.logdigestTimeZone.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "c448b4f340d4a9cb552cffac8d2053f7"
+    },
+    "option_group.logdigest.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "c6064b5a288aece10e02a44759567d03"
+    },
+    "option_group_description.logdigest.txt": {
+        "global_cache": false,
+        "version_id": 1,
+        "version_string": "0.1.0",
+        "hash": "ccddb0eed24cc812edcede6ebe8da657"
     }
 }

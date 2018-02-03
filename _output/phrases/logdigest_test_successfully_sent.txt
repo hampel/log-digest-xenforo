@@ -1,0 +1,1 @@
+Success: {count} most recent error logs have been sent to {email}

@@ -1,0 +1,1 @@
+Test may have failed - mail send returned false

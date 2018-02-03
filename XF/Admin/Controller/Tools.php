@@ -1,5 +1,7 @@
 <?php namespace LogDigest\XF\Admin\Controller;
 
+use LogDigest\Cache\DigestCache;
+
 class Tools extends XFCP_Tools
 {
 	public function actionTestLogDigest()
@@ -34,5 +36,38 @@ class Tools extends XFCP_Tools
 
 		$viewParams = compact('results', 'messages', 'test', 'options');
 		return $this->view('XF:Tools\TestLogDigest', 'logdigest_tools_test_logdigest', $viewParams);
+	}
+
+	public function actionResetLogDigest()
+	{
+		$this->setSectionContext('resetLogDigest');
+
+		$messages = [];
+
+		if ($this->isPost())
+		{
+			$options = $this->filter('options', 'array');
+
+			foreach ($options as $type => $reset)
+			{
+				if ($reset)
+				{
+					DigestCache::reset($type);
+					$messages[] = ['type' => 'success', 'message' => \XF::phrase('logdigest_successfully_reset', ['log' => $type])];
+				}
+			}
+		}
+
+		$types = [
+			'server-error' => [
+				'name' => 'Server error',
+				'route' => 'logs/server-errors',
+				'lastchecked' => DigestCache::getLastChecked('server-error'),
+				'lastid' => DigestCache::getLastId('server-error'),
+			]
+		];
+
+		$viewParams = compact('messages', 'options', 'types');
+		return $this->view('XF:Tools\ResetLogDigest', 'logdigest_tools_reset_logdigest', $viewParams);
 	}
 }

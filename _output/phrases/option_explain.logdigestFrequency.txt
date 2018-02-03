@@ -1,0 +1,1 @@
+How often would you like the system to check for new log files and then email them to you? Set this to a higher value to avoid flooding your inbox. Suggested value is between 5 - 15 minutes for more frequent alerts - or if only looking for summaries, try 1 hour = 60; 1 day = 1440; or 1 week = 10,080)

@@ -1,0 +1,1 @@
+The maximum number of log entries to include in the email. Set this to 0 to include all entries. Note that log entries are included from oldest to newest, so you won't miss any by setting this to a lower amount - but you will get more emails if a lot of log entries are generated.

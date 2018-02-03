@@ -1,0 +1,6 @@
+{
+    "from_class": "XF\\Repository\\ErrorLog",
+    "to_class": "LogDigest\\XF\\Repository\\ErrorLog",
+    "execute_order": 10,
+    "active": true
+}

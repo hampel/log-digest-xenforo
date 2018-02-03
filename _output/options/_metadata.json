@@ -1,0 +1,17 @@
+{
+    "logdigestDeduplicate.json": {
+        "hash": "1935f054adac83645821c028c65c08c0"
+    },
+    "logdigestEmail.json": {
+        "hash": "0d36f684a6537e40a52ff0c9951f7bb1"
+    },
+    "logdigestFrequency.json": {
+        "hash": "1de81cd776b0acf56e29ad51ccf8b703"
+    },
+    "logdigestLimit.json": {
+        "hash": "54ae4efbe8f3848d9140bc905c12ccbb"
+    },
+    "logdigestTimeZone.json": {
+        "hash": "3403cba16d9ca9286c414ee1d6d90b34"
+    }
+}
