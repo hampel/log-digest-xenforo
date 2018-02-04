@@ -1,5 +1,6 @@
 <?php namespace LogDigest\XF\Admin\Controller;
 
+use LogDigest\Option\TimeZone;
 use LogDigest\Cache\DigestCache;
 
 class Tools extends XFCP_Tools
@@ -58,11 +59,23 @@ class Tools extends XFCP_Tools
 			}
 		}
 
+		// TODO: will need to change this when we add support for multiple log types
+
+		$lastChecked = DigestCache::getLastChecked('server-error');
+		if ($lastChecked > 0)
+		{
+			$tz = new \DateTimeZone(TimeZone::get());
+			$logDate = new \DateTime();
+			$logDate->setTimestamp(intval($lastChecked));
+			$logDate->setTimezone($tz);
+			$lastChecked = $logDate->format('r');
+		}
+
 		$types = [
 			'server-error' => [
 				'name' => 'Server error',
 				'route' => 'logs/server-errors',
-				'lastchecked' => DigestCache::getLastChecked('server-error'),
+				'lastchecked' => $lastChecked,
 				'lastid' => DigestCache::getLastId('server-error'),
 			]
 		];

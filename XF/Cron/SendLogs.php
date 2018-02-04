@@ -87,7 +87,7 @@ class SendLogs
 				$logsToSend[] = $log;
 				$logCount++;
 
-				if ($logCount >= $limit) break; // stop once we get to our limit
+				if (isset($limit) && $logCount >= $limit) break; // stop once we get to our limit
 			}
 
 			if ($logCount == 0) continue; // skip if we didn't actually get any logs to send
