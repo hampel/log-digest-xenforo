@@ -35,7 +35,7 @@
 <xf:else />
 	{{ phrase('logdigest_no_logs_found') }}
 </xf:if>]]></template>
-  <template type="admin" title="logdigest_tools_reset_logdigest" version_id="1" version_string="0.1.0"><![CDATA[<xf:title>{{ phrase('logdigest_reset_logdigest') }}</xf:title>
+  <template type="admin" title="logdigest_tools_reset_logdigest" version_id="3" version_string="1.0.1"><![CDATA[<xf:title>{{ phrase('logdigest_reset_logdigest') }}</xf:title>
 
 <xf:if is="$messages">
 	<xf:foreach loop="$messages" value="$message">
@@ -52,8 +52,8 @@
 				<xf:foreach loop="$types" key="$type" value="$log">
 					<xf:option label="{{ phrase('logdigest_log_type_last_checked', {
 									  	'name': $log.name,
-									  	'lastupdated': ($log.lastchecked == 0) ? 'never' : date_time($log.lastchecked),
-									  	'lastid': ($log.lastid == 0) ? '-' : $log.lastid
+									  	'lastupdated': $log.lastchecked ? $log.lastchecked : 'never',
+									  	'lastid': $log.lastid ? $log.lastid : 'none'
 									  }) }}"
 							   name="options[{$type}]" />
 				</xf:foreach>	
