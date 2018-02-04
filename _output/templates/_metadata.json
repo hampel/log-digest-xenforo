@@ -1,8 +1,8 @@
 {
     "admin/logdigest_tools_reset_logdigest.html": {
-        "version_id": 1,
-        "version_string": "0.1.0",
-        "hash": "c3029c33de4e3618f55420de4370bf27"
+        "version_id": 3,
+        "version_string": "1.0.1",
+        "hash": "0d0aea92c1bb90dc306e5570ef05ef84"
     },
     "admin/logdigest_tools_test_logdigest.html": {
         "version_id": 1,
