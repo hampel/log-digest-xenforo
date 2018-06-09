@@ -1,4 +1,4 @@
-<?php namespace LogDigest\XF\Cron;
+<?php namespace LogDigest\Cron;
 
 use XF\App;
 use LogDigest\Option\Email;

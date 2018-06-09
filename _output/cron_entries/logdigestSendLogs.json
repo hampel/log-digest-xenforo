@@ -1,5 +1,5 @@
 {
-    "cron_class": "LogDigest\\XF\\Cron\\SendLogs",
+    "cron_class": "LogDigest\\Cron\\SendLogs",
     "cron_method": "send",
     "run_rules": {
         "day_type": "dom",
