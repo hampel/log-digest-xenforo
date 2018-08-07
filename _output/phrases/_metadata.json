@@ -37,8 +37,8 @@
     },
     "logdigest_email_subject.txt": {
         "global_cache": false,
-        "version_id": 1,
-        "version_string": "0.1.0",
+        "version_id": 3,
+        "version_string": "1.0.1",
         "hash": "5cbbaf33cb70d43a2acb935b952a0230"
     },
     "logdigest_file.txt": {
