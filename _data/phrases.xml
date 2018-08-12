@@ -6,7 +6,7 @@
   <phrase title="logdigest_all_tests_passed" version_id="1" version_string="0.1.0"><![CDATA[All tests passed]]></phrase>
   <phrase title="logdigest_choose_logs" version_id="1" version_string="0.1.0"><![CDATA[Choose which logs will have their last checked time reset]]></phrase>
   <phrase title="logdigest_duplicate_entry" version_id="1" version_string="0.1.0"><![CDATA[Duplicate entry]]></phrase>
-  <phrase title="logdigest_email_subject" version_id="1" version_string="0.1.0"><![CDATA[{type} log digest from {board}]]></phrase>
+  <phrase title="logdigest_email_subject" version_id="3" version_string="1.0.1"><![CDATA[{type} log digest from {board}]]></phrase>
   <phrase title="logdigest_file" version_id="1" version_string="0.1.0"><![CDATA[File]]></phrase>
   <phrase title="logdigest_generate_test_exception" version_id="1" version_string="0.1.0"><![CDATA[Generate Test Exception]]></phrase>
   <phrase title="logdigest_invalid_email_address" version_id="1" version_string="0.1.0"><![CDATA[Invalid email address]]></phrase>

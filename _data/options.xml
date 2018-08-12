@@ -21,7 +21,7 @@ units={{ phrase('units_minutes') }}</edit_format_params>
   </option>
   <option option_id="logdigestTimeZone" edit_format="callback" data_type="string">
     <default_value>Europe/London</default_value>
-    <edit_format_params>LogDigest\Option\TimeZone::renderOption</edit_format_params>
+    <edit_format_params>Hampel\LogDigest\Option\TimeZone::renderOption</edit_format_params>
     <relation group_id="logdigest" display_order="5"/>
   </option>
 </options>

@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
+  <template type="admin" title="logdigest_tools_reset_logdigest" version_id="3" version_string="1.0.1"><![CDATA[<xf:title>{{ phrase('logdigest_reset_logdigest') }}</xf:title>
+
+<xf:if is="$messages">
+	<xf:foreach loop="$messages" value="$message">
+		<div class="blockMessage blockMessage--{$message.type}">{{ $message.message }}</div>
+	</xf:foreach>
+</xf:if>
+
+<xf:form action="{{ link('tools/reset-logdigest') }}" class="block">
+	<div class="block-container">
+		<h2 class="block-header">{{ phrase('logdigest_choose_logs') }}</h2>
+		<div class="block-body">
+			<xf:checkboxrow label="{{ phrase('logdigest_logs') }}"
+							hint="{{ phrase('logdigest_reset_hint') }}" >
+				<xf:foreach loop="$types" key="$type" value="$log">
+					<xf:option label="{{ phrase('logdigest_log_type_last_checked', {
+									  	'name': $log.name,
+									  	'lastupdated': $log.lastchecked ? $log.lastchecked : 'never',
+									  	'lastid': $log.lastid ? $log.lastid : 'none'
+									  }) }}"
+							   name="options[{$type}]" />
+				</xf:foreach>	
+			</xf:checkboxrow>
+			
+		</div>		
+		<xf:submitrow submit="{{ phrase('logdigest_reset') }}" />
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="logdigest_tools_test_logdigest" version_id="2000070" version_string="2.0.0"><![CDATA[<xf:title>{{ phrase('logdigest_test_logdigest') }}</xf:title>
+
+<xf:if is="$messages">
+	<xf:foreach loop="$messages" value="$message">
+		<div class="blockMessage blockMessage--{$message.type}">{{ $test }} - {{ $message.message }}</div>
+	</xf:foreach>
+</xf:if>
+<xf:if is="$results">
+	<div class="blockMessage blockMessage--success">{{ $test }} - {{ phrase('logdigest_all_tests_passed') }}</div>
+</xf:if>
+
+<xf:form action="{{ link('tools/test-logdigest') }}" class="block">
+	<div class="block-container">
+		<h2 class="block-header">{{ phrase('logdigest_send_test_email') }}</h2>
+		<div class="block-body">
+			<xf:textboxrow label="{{ phrase('email') }}" 
+						   name="options[email]" 
+						   value="{$options.email}" 
+						   hint="{{ phrase('logdigest_test_email_hint') }}" />
+			
+			<xf:checkboxrow standalone="true" 
+							label="{{ phrase('logdigest_options') }}">
+				<xf:option label="{{ phrase('logdigest_generate_test_exception') }}"
+						   hint="{{ phrase('logdigest_test_exception_hint') }}" 
+						   name="options[generate]" 
+						   selected="{$options.generate}" />
+			</xf:checkboxrow>
+			
+		</div>		
+		<xf:submitrow submit="{{ phrase('logdigest_test') }}" />
+	</div>
+	<xf:hiddenval name="test">Hampel\LogDigest:DigestTest</xf:hiddenval>
+</xf:form>]]></template>
   <template type="email" title="logdigest_server_error" version_id="1" version_string="0.1.0"><![CDATA[<mail:subject>
 	<xf:if is="$test">{{ phrase('logdigest_test_prefix') }} </xf:if>{{ phrase('logdigest_email_subject', {
 		'type': $type,
@@ -35,65 +96,4 @@
 <xf:else />
 	{{ phrase('logdigest_no_logs_found') }}
 </xf:if>]]></template>
-  <template type="admin" title="logdigest_tools_reset_logdigest" version_id="3" version_string="1.0.1"><![CDATA[<xf:title>{{ phrase('logdigest_reset_logdigest') }}</xf:title>
-
-<xf:if is="$messages">
-	<xf:foreach loop="$messages" value="$message">
-		<div class="blockMessage blockMessage--{$message.type}">{{ $message.message }}</div>
-	</xf:foreach>
-</xf:if>
-
-<xf:form action="{{ link('tools/reset-logdigest') }}" class="block">
-	<div class="block-container">
-		<h2 class="block-header">{{ phrase('logdigest_choose_logs') }}</h2>
-		<div class="block-body">
-			<xf:checkboxrow label="{{ phrase('logdigest_logs') }}"
-							hint="{{ phrase('logdigest_reset_hint') }}" >
-				<xf:foreach loop="$types" key="$type" value="$log">
-					<xf:option label="{{ phrase('logdigest_log_type_last_checked', {
-									  	'name': $log.name,
-									  	'lastupdated': $log.lastchecked ? $log.lastchecked : 'never',
-									  	'lastid': $log.lastid ? $log.lastid : 'none'
-									  }) }}"
-							   name="options[{$type}]" />
-				</xf:foreach>	
-			</xf:checkboxrow>
-			
-		</div>		
-		<xf:submitrow submit="{{ phrase('logdigest_reset') }}" />
-	</div>
-</xf:form>]]></template>
-  <template type="admin" title="logdigest_tools_test_logdigest" version_id="1" version_string="0.1.0"><![CDATA[<xf:title>{{ phrase('logdigest_test_logdigest') }}</xf:title>
-
-<xf:if is="$messages">
-	<xf:foreach loop="$messages" value="$message">
-		<div class="blockMessage blockMessage--{$message.type}">{{ $test }} - {{ $message.message }}</div>
-	</xf:foreach>
-</xf:if>
-<xf:if is="$results">
-	<div class="blockMessage blockMessage--success">{{ $test }} - {{ phrase('logdigest_all_tests_passed') }}</div>
-</xf:if>
-
-<xf:form action="{{ link('tools/test-logdigest') }}" class="block">
-	<div class="block-container">
-		<h2 class="block-header">{{ phrase('logdigest_send_test_email') }}</h2>
-		<div class="block-body">
-			<xf:textboxrow label="{{ phrase('email') }}" 
-						   name="options[email]" 
-						   value="{$options.email}" 
-						   hint="{{ phrase('logdigest_test_email_hint') }}" />
-			
-			<xf:checkboxrow standalone="true" 
-							label="{{ phrase('logdigest_options') }}">
-				<xf:option label="{{ phrase('logdigest_generate_test_exception') }}"
-						   hint="{{ phrase('logdigest_test_exception_hint') }}" 
-						   name="options[generate]" 
-						   selected="{$options.generate}" />
-			</xf:checkboxrow>
-			
-		</div>		
-		<xf:submitrow submit="{{ phrase('logdigest_test') }}" />
-	</div>
-	<xf:hiddenval name="test">LogDigest:DigestTest</xf:hiddenval>
-</xf:form>]]></template>
 </templates>
