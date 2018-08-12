@@ -1,9 +1,9 @@
 {
-    "legacy_addon_id": "",
+    "legacy_addon_id": "LogDigest",
     "title": "Log Digest",
     "description": "Sends XenForo logs to administrators via email",
-    "version_id": 3,
-    "version_string": "1.0.1",
+    "version_id": 2000070,
+    "version_string": "2.0.0",
     "dev": "Simon Hampel",
     "dev_url": "https://bitbucket.org/hampel/",
     "faq_url": "",

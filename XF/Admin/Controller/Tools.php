@@ -1,7 +1,7 @@
-<?php namespace LogDigest\XF\Admin\Controller;
+<?php namespace Hampel\LogDigest\XF\Admin\Controller;
 
-use LogDigest\Option\TimeZone;
-use LogDigest\Cache\DigestCache;
+use Hampel\LogDigest\Option\TimeZone;
+use Hampel\LogDigest\Cache\DigestCache;
 
 class Tools extends XFCP_Tools
 {

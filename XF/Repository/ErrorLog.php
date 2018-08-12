@@ -1,6 +1,6 @@
-<?php namespace LogDigest\XF\Repository;
+<?php namespace Hampel\LogDigest\XF\Repository;
 
-use LogDigest\Cache\DigestCache;
+use Hampel\LogDigest\Cache\DigestCache;
 
 class ErrorLog extends XFCP_ErrorLog
 {

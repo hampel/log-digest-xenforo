@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.0.0 (2018-08-12)
+------------------
+
+* changed addon_id from LogDigest to Hampel/LogDigest
+
 1.0.1 (2018-02-04)
 ------------------
 
