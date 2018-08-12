@@ -1,4 +1,4 @@
-<?php namespace LogDigest\Option;
+<?php namespace Hampel\LogDigest\Option;
 
 use XF\Option\AbstractOption;
 

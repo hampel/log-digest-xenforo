@@ -1,4 +1,4 @@
-<?php namespace LogDigest\Cache;
+<?php namespace Hampel\LogDigest\Cache;
 
 use XF\SimpleCacheSet;
 
@@ -7,7 +7,7 @@ class DigestCache
 	/** @return SimpleCacheSet */
 	public static function getCache()
 	{
-		return \XF::app()->simpleCache()->getSet('LogDigest');
+		return \XF::app()->simpleCache()->getSet('Hampel/LogDigest');
 	}
 
 	public static function getValue($type)

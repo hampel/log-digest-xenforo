@@ -1,4 +1,4 @@
-<?php namespace LogDigest\Test;
+<?php namespace Hampel\LogDigest\Test;
 
 use XF\App;
 use XF\Admin\Controller\AbstractController;

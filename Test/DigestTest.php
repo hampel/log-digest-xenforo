@@ -1,6 +1,6 @@
-<?php namespace LogDigest\Test;
+<?php namespace Hampel\LogDigest\Test;
 
-use LogDigest\Option\TimeZone;
+use Hampel\LogDigest\Option\TimeZone;
 use XF\Mvc\Entity\FinderCollection;
 
 class DigestTest extends AbstractTest

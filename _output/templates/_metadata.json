@@ -5,9 +5,9 @@
         "hash": "0d0aea92c1bb90dc306e5570ef05ef84"
     },
     "admin/logdigest_tools_test_logdigest.html": {
-        "version_id": 1,
-        "version_string": "0.1.0",
-        "hash": "b2afea7c1551eb43e5bb87b9fbdd46a9"
+        "version_id": 2000070,
+        "version_string": "2.0.0",
+        "hash": "cef6120941bfd3f4f2e47f85acdd6e10"
     },
     "email/logdigest_server_error.html": {
         "version_id": 1,

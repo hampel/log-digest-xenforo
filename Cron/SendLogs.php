@@ -1,12 +1,12 @@
-<?php namespace LogDigest\Cron;
+<?php namespace Hampel\LogDigest\Cron;
 
 use XF\App;
-use LogDigest\Option\Email;
-use LogDigest\Option\Limit;
-use LogDigest\Option\TimeZone;
-use LogDigest\Option\Frequency;
-use LogDigest\Cache\DigestCache;
-use LogDigest\Option\Deduplicate;
+use Hampel\LogDigest\Option\Email;
+use Hampel\LogDigest\Option\Limit;
+use Hampel\LogDigest\Option\TimeZone;
+use Hampel\LogDigest\Option\Frequency;
+use Hampel\LogDigest\Cache\DigestCache;
+use Hampel\LogDigest\Option\Deduplicate;
 
 class SendLogs
 {

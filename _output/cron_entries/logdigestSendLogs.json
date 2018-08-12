@@ -1,5 +1,5 @@
 {
-    "cron_class": "LogDigest\\Cron\\SendLogs",
+    "cron_class": "Hampel\\LogDigest\\Cron\\SendLogs",
     "cron_method": "send",
     "run_rules": {
         "day_type": "dom",

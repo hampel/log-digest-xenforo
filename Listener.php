@@ -1,4 +1,4 @@
-<?php namespace LogDigest;
+<?php namespace Hampel\LogDigest;
 
 use XF\App;
 use XF\Container;

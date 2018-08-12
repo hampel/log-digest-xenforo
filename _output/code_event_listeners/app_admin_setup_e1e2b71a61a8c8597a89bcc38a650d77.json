@@ -1,7 +1,7 @@
 {
     "event_id": "app_admin_setup",
     "execute_order": 10,
-    "callback_class": "LogDigest\\Listener",
+    "callback_class": "Hampel\\LogDigest\\Listener",
     "callback_method": "appAdminSetup",
     "active": true,
     "hint": "",
