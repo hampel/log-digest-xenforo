@@ -48,7 +48,7 @@ class SendLogs
 			           ->order($details['id'], 'ASC')
 			           ->fetch();
 
-			if (empty($logs))
+			if ($logs->count() == 0)
 			{
 				// update the last checked time so we don't keep retrying
 				DigestCache::setLastChecked($type, $app['time']);
