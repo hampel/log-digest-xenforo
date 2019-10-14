@@ -33,6 +33,8 @@ class SendLogs
 			]
 		];
 
+		// TODO: use a service or repo for sending logs
+
 		foreach ($logTypes as $type => $details)
 		{
 			$lastChecked = DigestCache::getLastChecked($type);

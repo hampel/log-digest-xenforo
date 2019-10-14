@@ -4,6 +4,8 @@ use XF\SimpleCacheSet;
 
 class DigestCache
 {
+	// TODO: turn this into a repo
+
 	/** @return SimpleCacheSet */
 	public static function getCache()
 	{
