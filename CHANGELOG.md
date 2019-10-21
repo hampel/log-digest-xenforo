@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.1.0 (2019-10-21)
+------------------
+
+* major restructure and rewrite of code to use repositories and services
+
 2.0.0 (2018-08-12)
 ------------------
 
