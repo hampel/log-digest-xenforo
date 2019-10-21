@@ -1,6 +1,6 @@
 {
     "cron_class": "Hampel\\LogDigest\\Cron\\SendLogs",
-    "cron_method": "send",
+    "cron_method": "serverError",
     "run_rules": {
         "day_type": "dom",
         "dom": [
