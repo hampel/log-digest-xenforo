@@ -2,15 +2,22 @@
 <phrases>
   <phrase title="admin_navigation.resetLogDigest" version_id="1" version_string="0.1.0"><![CDATA[Reset Log Digest]]></phrase>
   <phrase title="admin_navigation.testLogDigest" version_id="1" version_string="0.1.0"><![CDATA[Test Log Digest]]></phrase>
-  <phrase title="cron_entry.logdigestSendLogs" version_id="1" version_string="0.1.0"><![CDATA[Send Log Digest Logs]]></phrase>
+  <phrase title="cron_entry.logdigestSendLogs" version_id="2000070" version_string="2.0.0"><![CDATA[Log Digest: Send Logs]]></phrase>
   <phrase title="logdigest_all_tests_passed" version_id="1" version_string="0.1.0"><![CDATA[All tests passed]]></phrase>
   <phrase title="logdigest_choose_logs" version_id="1" version_string="0.1.0"><![CDATA[Choose which logs will have their last checked time reset]]></phrase>
+  <phrase title="logdigest_deduplicate" version_id="2000070" version_string="2.0.0"><![CDATA[De-duplicate logs]]></phrase>
+  <phrase title="logdigest_deduplicate_explain" version_id="2000070" version_string="2.0.0"><![CDATA[Compress consecutive identical logs into a single log entry in the emails]]></phrase>
   <phrase title="logdigest_duplicate_entry" version_id="1" version_string="0.1.0"><![CDATA[Duplicate entry]]></phrase>
+  <phrase title="logdigest_email_frequency" version_id="2000070" version_string="2.0.0"><![CDATA[Email frequency]]></phrase>
   <phrase title="logdigest_email_subject" version_id="3" version_string="1.0.1"><![CDATA[{type} log digest from {board}]]></phrase>
+  <phrase title="logdigest_enable_server_error_log" version_id="2000070" version_string="2.0.0"><![CDATA[Enable server error log digest]]></phrase>
   <phrase title="logdigest_file" version_id="1" version_string="0.1.0"><![CDATA[File]]></phrase>
+  <phrase title="logdigest_frequency_explain" version_id="2000070" version_string="2.0.0"><![CDATA[How often (in minutes) the system should check for new log files and then email them. Lower values are good for alerting you more quickly to issues, but risks flooding your inbox. Suggested value is between 5 - 15 minutes for more frequent alerts - or if only looking for summaries, try 1 hour = 60; 1 day = 1440; or 1 week = 10,080)]]></phrase>
   <phrase title="logdigest_generate_test_exception" version_id="1" version_string="0.1.0"><![CDATA[Generate Test Exception]]></phrase>
   <phrase title="logdigest_invalid_email_address" version_id="1" version_string="0.1.0"><![CDATA[Invalid email address]]></phrase>
+  <phrase title="logdigest_limit_explain" version_id="2000070" version_string="2.0.0"><![CDATA[The maximum number of log entries to include in the email. Set this to 0 to include all entries. Note that log entries are included from oldest to newest, so you won't miss any by setting this to a lower amount - but you will get more emails if a lot of log entries are generated.]]></phrase>
   <phrase title="logdigest_log_date" version_id="1" version_string="0.1.0"><![CDATA[Log date]]></phrase>
+  <phrase title="logdigest_log_limit" version_id="2000070" version_string="2.0.0"><![CDATA[Log limit]]></phrase>
   <phrase title="logdigest_log_type_last_checked" version_id="1" version_string="0.1.0"><![CDATA[{name} log (last checked: {lastupdated}; last id: {lastid})]]></phrase>
   <phrase title="logdigest_logs" version_id="1" version_string="0.1.0"><![CDATA[Logs]]></phrase>
   <phrase title="logdigest_message" version_id="1" version_string="0.1.0"><![CDATA[Message]]></phrase>
@@ -27,21 +34,18 @@
   <phrase title="logdigest_test_exception_hint" version_id="1" version_string="0.1.0"><![CDATA[Create our own error so we can test the email]]></phrase>
   <phrase title="logdigest_test_logdigest" version_id="1" version_string="0.1.0"><![CDATA[Test Log Digest]]></phrase>
   <phrase title="logdigest_test_message" version_id="1" version_string="0.1.0"><![CDATA[This is a test message showing up to 5 of the most recent log entries in reverse chronological order (newest first).]]></phrase>
+  <phrase title="logdigest_test_no_logs_found" version_id="2000070" version_string="2.0.0"><![CDATA[Test failed - no logs were found]]></phrase>
   <phrase title="logdigest_test_prefix" version_id="1" version_string="0.1.0"><![CDATA[[Test]]]></phrase>
   <phrase title="logdigest_test_returned_false" version_id="1" version_string="0.1.0"><![CDATA[Test may have failed - mail send returned false]]></phrase>
   <phrase title="logdigest_test_successfully_sent" version_id="1" version_string="0.1.0"><![CDATA[Success: {count} most recent error logs have been sent to {email}]]></phrase>
   <phrase title="logdigest_this_test_could_not_be_run" version_id="1" version_string="0.1.0"><![CDATA[This test could not be run]]></phrase>
   <phrase title="logdigest_view_this_error" version_id="1" version_string="0.1.0"><![CDATA[View this error]]></phrase>
-  <phrase title="option.logdigestDeduplicate" version_id="1" version_string="0.1.0"><![CDATA[De-duplicate Logs]]></phrase>
-  <phrase title="option.logdigestEmail" version_id="1" version_string="0.1.0"><![CDATA[Email]]></phrase>
-  <phrase title="option.logdigestFrequency" version_id="1" version_string="0.1.0"><![CDATA[Frequency]]></phrase>
-  <phrase title="option.logdigestLimit" version_id="1" version_string="0.1.0"><![CDATA[Log Limit]]></phrase>
+  <phrase title="option.logdigestEmail" version_id="2000070" version_string="2.0.0"><![CDATA[Email recipient]]></phrase>
+  <phrase title="option.logdigestServerError" version_id="2000070" version_string="2.0.0"><![CDATA[Server error logs]]></phrase>
   <phrase title="option.logdigestTimeZone" version_id="1" version_string="0.1.0"><![CDATA[Log Time Zone]]></phrase>
-  <phrase title="option_explain.logdigestDeduplicate" version_id="1" version_string="0.1.0"><![CDATA[Should consecutive identical log entries be compressed into a single log in the emails? The total count of identical logs will be included.]]></phrase>
-  <phrase title="option_explain.logdigestEmail" version_id="1" version_string="0.1.0"><![CDATA[Enter the recipient address for log messages, or leave blank to use the board Contact email address]]></phrase>
-  <phrase title="option_explain.logdigestFrequency" version_id="1" version_string="0.1.0"><![CDATA[How often would you like the system to check for new log files and then email them to you? Set this to a higher value to avoid flooding your inbox. Suggested value is between 5 - 15 minutes for more frequent alerts - or if only looking for summaries, try 1 hour = 60; 1 day = 1440; or 1 week = 10,080)]]></phrase>
-  <phrase title="option_explain.logdigestLimit" version_id="1" version_string="0.1.0"><![CDATA[The maximum number of log entries to include in the email. Set this to 0 to include all entries. Note that log entries are included from oldest to newest, so you won't miss any by setting this to a lower amount - but you will get more emails if a lot of log entries are generated.]]></phrase>
-  <phrase title="option_explain.logdigestTimeZone" version_id="1" version_string="0.1.0"><![CDATA[Dates and times of log entries will be displayed in this time zone in emails]]></phrase>
+  <phrase title="option_explain.logdigestEmail" version_id="2000070" version_string="2.0.0"><![CDATA[Enter the recipient email address for log messages, or leave blank to use the board Contact email address]]></phrase>
+  <phrase title="option_explain.logdigestServerError" version_id="2000070" version_string="2.0.0"><![CDATA[Sends Server Error logs to the address specified on the selected frequency.]]></phrase>
+  <phrase title="option_explain.logdigestTimeZone" version_id="2000070" version_string="2.0.0"><![CDATA[Dates and times of all log entries will be displayed in this time zone in emails]]></phrase>
   <phrase title="option_group.logdigest" version_id="1" version_string="0.1.0"><![CDATA[Log Digest]]></phrase>
   <phrase title="option_group_description.logdigest" version_id="1" version_string="0.1.0"><![CDATA[Send email digests of log files to administrators]]></phrase>
 </phrases>

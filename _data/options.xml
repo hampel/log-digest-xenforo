@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
-  <option option_id="logdigestDeduplicate" edit_format="onoff" data_type="boolean">
-    <default_value>true</default_value>
-    <relation group_id="logdigest" display_order="4"/>
-  </option>
   <option option_id="logdigestEmail" edit_format="textbox" data_type="string">
     <default_value></default_value>
     <relation group_id="logdigest" display_order="1"/>
   </option>
-  <option option_id="logdigestFrequency" edit_format="spinbox" data_type="unsigned_integer">
-    <default_value>5</default_value>
-    <edit_format_params>min=5
-units={{ phrase('units_minutes') }}</edit_format_params>
-    <relation group_id="logdigest" display_order="2"/>
-  </option>
-  <option option_id="logdigestLimit" edit_format="spinbox" data_type="unsigned_integer">
-    <default_value>10</default_value>
-    <edit_format_params>min=0</edit_format_params>
-    <relation group_id="logdigest" display_order="3"/>
+  <option option_id="logdigestServerError" edit_format="template" data_type="array">
+    <default_value>{"enabled":true,"frequency":5,"limit":10,"deduplicate":true}</default_value>
+    <edit_format_params>option_template_logdigestServerError</edit_format_params>
+    <sub_options>enabled
+frequency
+limit
+deduplicate</sub_options>
+    <relation group_id="logdigest" display_order="100"/>
   </option>
   <option option_id="logdigestTimeZone" edit_format="callback" data_type="string">
     <default_value>Europe/London</default_value>
     <edit_format_params>Hampel\LogDigest\Option\TimeZone::renderOption</edit_format_params>
-    <relation group_id="logdigest" display_order="5"/>
+    <relation group_id="logdigest" display_order="2"/>
   </option>
 </options>

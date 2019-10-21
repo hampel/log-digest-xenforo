@@ -61,6 +61,39 @@
 	</div>
 	<xf:hiddenval name="test">Hampel\LogDigest:DigestTest</xf:hiddenval>
 </xf:form>]]></template>
+  <template type="admin" title="option_template_logdigestServerError" version_id="2000070" version_string="2.0.0"><![CDATA[<xf:checkboxrow
+	label="{$option.title}"
+	hint="{$hintHtml}"
+	explain="{$explainHtml}"
+	html="{$listedHtml}">
+
+	<xf:option name="{$inputName}[enabled]" value="1" selected="$option.option_value.enabled"
+		label="{{ phrase('logdigest_enable_server_error_log') }}" data-hide="true">
+		<xf:dependent>
+			
+			<dl class="inputLabelPair">
+				<dt><label for="{$inputName}_0">{{ phrase('logdigest_email_frequency') }}</label></dt>
+				<dd><xf:numberbox name="{$inputName}[frequency]" value="{$option.option_value.frequency}" id="{$inputName}_0" min="1" /></dd>
+			</dl>
+			<p class="formRow-explain">{{ phrase('logdigest_frequency_explain') }}</p>
+			
+			<dl class="inputLabelPair">
+				<dt><label for="{$inputName}_1">{{ phrase('logdigest_log_limit') }}</label></dt>
+				<dd><xf:numberbox name="{$inputName}[limit]" value="{$option.option_value.limit}" id="{$inputName}_1" min="0" /></dd>
+			</dl>
+			<p class="formRow-explain">{{ phrase('logdigest_limit_explain') }}</p>		
+		</xf:dependent>
+		
+		<xf:dependent>
+			<div>{{ phrase('logdigest_deduplicate:') }}</div>
+			<xf:checkbox>
+				<xf:option name="{$inputName}[deduplicate]" value="1" selected="$option.option_value.deduplicate">
+					{{ phrase('logdigest_deduplicate_explain') }}
+				</xf:option>
+			</xf:checkbox>
+		</xf:dependent>		
+	</xf:option>
+</xf:checkboxrow>]]></template>
   <template type="email" title="logdigest_server_error" version_id="1" version_string="0.1.0"><![CDATA[<mail:subject>
 	<xf:if is="$test">{{ phrase('logdigest_test_prefix') }} </xf:if>{{ phrase('logdigest_email_subject', {
 		'type': $type,
