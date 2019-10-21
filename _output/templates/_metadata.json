@@ -9,6 +9,11 @@
         "version_string": "2.0.0",
         "hash": "cef6120941bfd3f4f2e47f85acdd6e10"
     },
+    "admin/option_template_logdigestServerError.html": {
+        "version_id": 2000070,
+        "version_string": "2.0.0",
+        "hash": "d0c47abf6ebffb66d96dbb135da8a491"
+    },
     "email/logdigest_server_error.html": {
         "version_id": 1,
         "version_string": "0.1.0",

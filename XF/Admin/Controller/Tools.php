@@ -1,7 +1,7 @@
 <?php namespace Hampel\LogDigest\XF\Admin\Controller;
 
 use Hampel\LogDigest\Option\TimeZone;
-use Hampel\LogDigest\Cache\DigestCache;
+use Hampel\LogDigest\Repository\DigestCache;
 
 class Tools extends XFCP_Tools
 {
@@ -45,6 +45,8 @@ class Tools extends XFCP_Tools
 
 		$messages = [];
 
+		$cache = $this->getCacheRepo();
+
 		if ($this->isPost())
 		{
 			$options = $this->filter('options', 'array');
@@ -53,7 +55,8 @@ class Tools extends XFCP_Tools
 			{
 				if ($reset)
 				{
-					DigestCache::reset($type);
+
+					$cache->reset($type);
 					$messages[] = ['type' => 'success', 'message' => \XF::phrase('logdigest_successfully_reset', ['log' => $type])];
 				}
 			}
@@ -61,7 +64,7 @@ class Tools extends XFCP_Tools
 
 		// TODO: will need to change this when we add support for multiple log types
 
-		$lastChecked = DigestCache::getLastChecked('server-error');
+		$lastChecked = $cache->getLastChecked('server-error');
 		if ($lastChecked > 0)
 		{
 			$tz = new \DateTimeZone(TimeZone::get());
@@ -76,11 +79,19 @@ class Tools extends XFCP_Tools
 				'name' => 'Server error',
 				'route' => 'logs/server-errors',
 				'lastchecked' => $lastChecked,
-				'lastid' => DigestCache::getLastId('server-error'),
+				'lastid' => $cache->getLastId('server-error'),
 			]
 		];
 
 		$viewParams = compact('messages', 'options', 'types');
 		return $this->view('XF:Tools\ResetLogDigest', 'logdigest_tools_reset_logdigest', $viewParams);
+	}
+
+	/**
+	 * @return DigestCache
+	 */
+	protected function getCacheRepo()
+	{
+		return $this->repository('Hampel\LogDigest:DigestCache');
 	}
 }

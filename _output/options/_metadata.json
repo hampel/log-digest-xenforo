@@ -1,17 +1,11 @@
 {
-    "logdigestDeduplicate.json": {
-        "hash": "1935f054adac83645821c028c65c08c0"
-    },
     "logdigestEmail.json": {
         "hash": "0d36f684a6537e40a52ff0c9951f7bb1"
     },
-    "logdigestFrequency.json": {
-        "hash": "1de81cd776b0acf56e29ad51ccf8b703"
-    },
-    "logdigestLimit.json": {
-        "hash": "54ae4efbe8f3848d9140bc905c12ccbb"
+    "logdigestServerError.json": {
+        "hash": "50dc7f214d50364a38bf7b2012098e27"
     },
     "logdigestTimeZone.json": {
-        "hash": "ed1d044e10ccb43b829d15a4e06fe1c5"
+        "hash": "2857d1e9731681b25660fa7c490b7230"
     }
 }

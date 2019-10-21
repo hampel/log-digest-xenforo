@@ -1,0 +1,17 @@
+{
+    "edit_format": "template",
+    "edit_format_params": "option_template_logdigestServerError",
+    "data_type": "array",
+    "sub_options": [
+        "enabled",
+        "frequency",
+        "limit",
+        "deduplicate"
+    ],
+    "validation_class": "",
+    "validation_method": "",
+    "default_value": "{\"enabled\":true,\"frequency\":5,\"limit\":10,\"deduplicate\":true}",
+    "relations": {
+        "logdigest": 100
+    }
+}

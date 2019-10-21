@@ -1,1 +1,1 @@
-Enter the recipient address for log messages, or leave blank to use the board Contact email address
+Enter the recipient email address for log messages, or leave blank to use the board Contact email address

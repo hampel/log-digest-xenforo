@@ -1,6 +1,6 @@
 <?php namespace Hampel\LogDigest\XF\Repository;
 
-use Hampel\LogDigest\Cache\DigestCache;
+use Hampel\LogDigest\Repository\DigestCache;
 
 class ErrorLog extends XFCP_ErrorLog
 {
@@ -9,6 +9,9 @@ class ErrorLog extends XFCP_ErrorLog
 		parent::clearErrorLog();
 
 		// reset the last updated cache for server errors so we get all new log entries
-		DigestCache::reset('server-error');
+
+		/** @var DigestCache $cache */
+		$cache = $this->repository('Hampel\LogDigest:DigestCache');
+		$cache->reset('server-error');
 	}
 }

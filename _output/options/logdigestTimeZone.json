@@ -7,6 +7,6 @@
     "validation_method": "",
     "default_value": "Europe/London",
     "relations": {
-        "logdigest": 5
+        "logdigest": 2
     }
 }

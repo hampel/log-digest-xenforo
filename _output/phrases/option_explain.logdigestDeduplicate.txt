@@ -1,1 +1,0 @@
-Should consecutive identical log entries be compressed into a single log in the emails? The total count of identical logs will be included.

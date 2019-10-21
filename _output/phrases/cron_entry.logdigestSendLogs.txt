@@ -1,1 +1,1 @@
-Send Log Digest Logs
+Log Digest: Send Logs
