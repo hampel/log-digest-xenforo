@@ -1,0 +1,11 @@
+{
+	"require-dev": {
+		"hampel/xenforo-test-framework": "dev-develop",
+		"nesbot/carbon": "^2.25"
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

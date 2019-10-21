@@ -1,134 +1,35 @@
 <?php namespace Hampel\LogDigest\Cron;
 
-use XF\App;
 use Hampel\LogDigest\Option\Email;
-use Hampel\LogDigest\Option\Limit;
+use Hampel\LogDigest\Option\ServerError;
 use Hampel\LogDigest\Option\TimeZone;
-use Hampel\LogDigest\Option\Frequency;
-use Hampel\LogDigest\Cache\DigestCache;
-use Hampel\LogDigest\Option\Deduplicate;
+use Hampel\LogDigest\Repository\Log;
+use Hampel\LogDigest\Service\LogSender\ServerError as ServerErrorService;
 
 class SendLogs
 {
-	public static function send()
+	public static function serverError()
 	{
-		/** @var App $app */
-		$app = \XF::app();
-		$mailer = $app->mailer();
-		$email = Email::get();
-		$frequency = Frequency::getSeconds();
-		$limit = Limit::get();
-		$deduplicate = Deduplicate::get();
-		$tz = new \DateTimeZone(TimeZone::get());
+		if (!ServerError::isEnabled()) return; // stop if sending server error logs is not enabled
 
-		$logTypes = [
-			'server-error' => [
-				'name' => 'Server error',
-				'route' => 'logs/server-errors',
-				'entity' => 'ErrorLog',
-				'id' => 'error_id',
-				'date' => 'exception_date',
-				'template' => 'server_error',
-				'ignored' => ['error_id', 'exception_date', 'user_id', 'ip_address', 'request_state'],
-			]
-		];
+		/** @var Log $repo */
+		$repo = \XF::repository('Hampel\LogDigest:Log');
 
-		foreach ($logTypes as $type => $details)
+		$logs = $repo->getServerErrorLogs(ServerError::frequencySeconds());
+
+		if ($logs)
 		{
-			$lastChecked = DigestCache::getLastChecked($type);
+			/** @var ServerErrorService $sender */
+			$sender = \XF::service('Hampel\LogDigest:LogSender\ServerError', $logs, TimeZone::get());
+			$params = $sender->filterLogData(ServerError::deduplicate(), ServerError::limit());
 
-			// if it's been less than $frequency seconds since we last checked, then just skip and wait for the next
-			// check cycle
-			if ($lastChecked > 0 && ($lastChecked + $frequency > $app['time'])) continue;
-
-			$lastid = DigestCache::getLastId($type);
-
-			$logs = \XF::finder("XF:{$details['entity']}")
-			           ->where($details['id'], '>', $lastid)
-			           ->order($details['id'], 'ASC')
-			           ->fetch();
-
-			if (empty($logs))
+			if (!empty($params))
 			{
-				// update the last checked time so we don't keep retrying
-				DigestCache::setLastChecked($type, $app['time']);
-				continue; // skip to the next type
-			}
-
-			$logsToSend = [];
-			$duplicateCount = 0;
-			$logCount = 0;
-			$extra = [];
-
-			foreach ($logs as $log)
-			{
-				$id = $log[$details['id']];
-				$lastid = $id;
-
-				$logDate = new \DateTime();
-				$logDate->setTimestamp(intval($log[$details['date']]));
-				$logDate->setTimezone($tz);
-				$extra[$id]['date'] = $logDate->format('r');
-
-				$extra[$id]['duplicate'] = false;
-
-				if (
-					$deduplicate
-					&& !empty($logsToSend)
-					&& self::isDuplicate($log, $logsToSend, $details['ignored'])
-				)
+				if ($sender->send(Email::get(), 'server_error', $params))
 				{
-					$duplicateCount++;
-					$extra[$id]['duplicate'] = true;
-					$logsToSend[] = $log;
-					continue; // skip to next entry
+					$repo->updateLastSent('XF:ErrorLog', $sender->getLastId());
 				}
-
-				$logsToSend[] = $log;
-				$logCount++;
-
-				if (isset($limit) && $logCount >= $limit) break; // stop once we get to our limit
 			}
-
-			if ($logCount == 0) continue; // skip if we didn't actually get any logs to send
-
-			$params = [
-				'type' => $details['name'],
-				'route' => 'logs/server-errors',
-				'logs' => $logsToSend,
-				'extra' => $extra,
-				'duplicateCount' => $duplicateCount,
-			];
-
-			$sent = $mailer->newMail()
-			               ->setTo($email)
-			               ->setTemplate("logdigest_{$details['template']}", $params)
-			               ->send();
-
-			// if sending the logs failed (possibly due a temporary error?) the we'll want to try again
-			if ($sent) DigestCache::setValue($type, ['checked' => $app['time'], 'id' => $lastid]);
 		}
-	}
-
-	private static function isDuplicate($thisLog, $existingLogs, $ignore)
-	{
-		foreach ($existingLogs as $previousLog)
-		{
-			if (get_class($thisLog) != get_class($previousLog)) continue; // this shouldn't happen!
-
-			$thisLogData = $thisLog->toArray();
-			$previousLogData = $previousLog->toArray();
-
-			// remove ignored columns
-			foreach ($ignore as $column)
-			{
-				unset($thisLogData[$column]);
-				unset($previousLogData[$column]);
-			}
-
-			if ($thisLogData === $previousLogData) return true;
-		}
-
-		return false;
 	}
 }
