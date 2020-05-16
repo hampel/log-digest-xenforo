@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2.1.2 (2020-05-16)
+------------------
+
+* add version requirements to addon.json
+* bugfix: variable may not have been defined when we used it
+* use release version of hampel/xenforo-test-framework
+
 2.1.1 (2019-10-21)
 ------------------
 

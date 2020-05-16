@@ -1,6 +1,6 @@
 {
 	"require-dev": {
-		"hampel/xenforo-test-framework": "dev-develop",
+		"hampel/xenforo-test-framework": "^1.0",
 		"nesbot/carbon": "^2.25"
 	},
     "autoload-dev": {
