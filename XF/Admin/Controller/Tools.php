@@ -44,6 +44,7 @@ class Tools extends XFCP_Tools
 		$this->setSectionContext('resetLogDigest');
 
 		$messages = [];
+		$options = [];
 
 		$cache = $this->getCacheRepo();
 
