@@ -12,6 +12,15 @@
         "Git Repository": "https://bitbucket.org/hampel/log-digest-xenforo",
         "Twitter": "https://twitter.com/SimonHampel"
     },
-    "require": [],
+    "require": {
+        "php": [
+            "7.0",
+            "PHP 7.0+"
+        ],
+        "XF": [
+            "2000070",
+            "XenForo 2.0.0+"
+        ]
+    },
     "icon": "fa-envelope-open-text"
 }
