@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-  <template type="admin" title="logdigest_tools_reset_logdigest" version_id="3" version_string="1.0.1"><![CDATA[<xf:title>{{ phrase('logdigest_reset_logdigest') }}</xf:title>
+  <template type="admin" title="logdigest_tools_reset_logdigest" version_id="2010170" version_string="2.1.1"><![CDATA[<xf:title>{{ phrase('logdigest_reset_logdigest') }}</xf:title>
 
 <xf:if is="$messages">
 	<xf:foreach loop="$messages" value="$message">
@@ -28,7 +28,7 @@
 		<xf:submitrow submit="{{ phrase('logdigest_reset') }}" />
 	</div>
 </xf:form>]]></template>
-  <template type="admin" title="logdigest_tools_test_logdigest" version_id="2000070" version_string="2.0.0"><![CDATA[<xf:title>{{ phrase('logdigest_test_logdigest') }}</xf:title>
+  <template type="admin" title="logdigest_tools_test_logdigest" version_id="2010170" version_string="2.1.1"><![CDATA[<xf:title>{{ phrase('logdigest_test_logdigest') }}</xf:title>
 
 <xf:if is="$messages">
 	<xf:foreach loop="$messages" value="$message">
@@ -94,7 +94,7 @@
 		</xf:dependent>		
 	</xf:option>
 </xf:checkboxrow>]]></template>
-  <template type="email" title="logdigest_server_error" version_id="1" version_string="0.1.0"><![CDATA[<mail:subject>
+  <template type="email" title="logdigest_server_error" version_id="2010170" version_string="2.1.1"><![CDATA[<mail:subject>
 	<xf:if is="$test">{{ phrase('logdigest_test_prefix') }} </xf:if>{{ phrase('logdigest_email_subject', {
 		'type': $type,
 		'board': $xf.options.boardTitle
