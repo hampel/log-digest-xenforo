@@ -1,0 +1,1 @@
+Recent {type} logs from {board}
