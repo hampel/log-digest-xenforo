@@ -73,7 +73,7 @@ abstract class AbstractDigest
 	public function getLogs()
 	{
 		$lastChecked = $this->getLastChecked();
-		$frequency = $this->frequency();
+		$frequency = $this->frequencySeconds();
 
 		// if it's been less than $frequency seconds since we last checked, then just skip and wait for the next
 		// check cycle
