@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.0.1 (2021-05-20)
+------------------
+
+* bug fix - undeclared variable
+* added monolog logging support for debug purposes
+
 3.0.0 (2021-05-20)
 ------------------
 
