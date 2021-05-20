@@ -28,6 +28,7 @@ class DigestTest extends AbstractTest
 		$logs = $digest->getLogs();
 
 		$sent = false;
+		$count = 0;
 
 		if ($logs)
 		{
