@@ -1,5 +1,6 @@
 <?php namespace Hampel\LogDigest;
 
+use Hampel\LogDigest\SubContainer\Log;
 use Hampel\LogDigest\SubContainer\LogDigest;
 use XF\App;
 use XF\Container;
@@ -13,6 +14,12 @@ class Listener
 		$container['logDigest'] = function(Container $c) use ($app)
 		{
 			$class = $app->extendClass(LogDigest::class);
+			return new $class($c, $app);
+		};
+
+		$container['logDigest.log'] = function(Container $c) use ($app)
+		{
+			$class = $app->extendClass(Log::class);
 			return new $class($c, $app);
 		};
 	}

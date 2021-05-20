@@ -1,6 +1,7 @@
 <?php namespace Hampel\LogDigest\SubContainer;
 
 use Hampel\LogDigest\Digest\AbstractDigest;
+use Hampel\LogDigest\Helper\Log;
 use Hampel\LogDigest\Option\Email;
 use Hampel\LogDigest\Option\TimeZone;
 use XF\Container;
@@ -62,14 +63,26 @@ class LogDigest extends AbstractSubContainer
 		$digest = $this->digest($class);
 
 		// stop if this log type is not enabled
-		if (!$digest->isEnabled()) return;
+		if (!$digest->isEnabled())
+		{
+			Log::info("Skipping sending disabled log", ['class' => $class]);
+
+			return;
+		}
 
 		$logs = $digest->getLogs();
 
-		if ($logs && $logs->count() > 0)
+		if ($logs)
 		{
-			$filteredLogs = $digest->prepareLogs($logs);
-			$digest->send($filteredLogs, $email);
+			$count = $logs->count();
+
+			if ($count > 0)
+			{
+				$filteredLogs = $digest->prepareLogs($logs);
+				$digest->send($filteredLogs, $email);
+
+				Log::info("Sent logs", ['class' => $class, 'email' => $email, 'count' => $count]);
+			}
 		}
 	}
 
@@ -111,7 +124,10 @@ class LogDigest extends AbstractSubContainer
 	public function reset($type)
 	{
 		$digestList = $this->digestList();
+		$class = $digestList[$type];
 
-		$this->digest($digestList[$type])->resetLastChecked();
+		$this->digest($class)->resetLastChecked();
+
+		Log::info("Reset last checked", ['type' => $type, 'class' => $class]);
 	}
 }

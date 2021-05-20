@@ -1,5 +1,6 @@
 <?php namespace Hampel\LogDigest\Digest;
 
+use Hampel\LogDigest\Helper\Log;
 use Hampel\LogDigest\Repository\DigestCache;
 use XF\Mvc\Entity\ArrayCollection;
 
@@ -77,12 +78,19 @@ abstract class AbstractDigest
 
 		// if it's been less than $frequency seconds since we last checked, then just skip and wait for the next
 		// check cycle
-		if ($lastChecked > 0 && ($lastChecked + $frequency > \XF::$time)) return;
+		if ($lastChecked > 0 && ($lastChecked + $frequency > \XF::$time))
+		{
+			Log::debug('Not yet time to send logs', ['log' => strval($this->getLogName()), 'lastChecked' => $lastChecked, 'frequency' => $frequency, 'time' => \XF::$time]);
+
+			return;
+		}
 
 		$logs = $this->fetchLogs($lastChecked);
 
 		if ($logs->count() == 0)
 		{
+			Log::debug('No new logs found', ['log' => strval($this->getLogName()), 'lastChecked' => $lastChecked, 'time' => \XF::$time]);
+
 			// update the last checked time so we don't keep retrying
 			$this->updateLastChecked(\XF::$time);
 		}
