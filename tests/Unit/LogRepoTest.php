@@ -19,7 +19,12 @@ class LogRepoTest extends TestCase
 
 		$this->digest = new class($this->app(), 'UTC') extends AbstractDigest {
 
-			protected function getLogName()
+			protected function getOptionId()
+			{
+				return 'optionid';
+			}
+
+			public function getLogName()
 			{
 				return 'log name';
 			}
@@ -53,6 +58,12 @@ class LogRepoTest extends TestCase
 
 	public function test_getLogs_returns_null_lastChecked()
 	{
+		$this->setOptions([
+			'optionid' => [
+				'frequency' => 5
+			]
+		]);
+
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
@@ -60,11 +71,17 @@ class LogRepoTest extends TestCase
 			$mock->expects('getLastChecked')->with('entity id')->andReturns($time->copy()->subMinutes(3)->timestamp);
 		});
 
-		$this->assertNull($this->digest->getLogs(5*60));
+		$this->assertNull($this->digest->getLogs());
 	}
 
 	public function test_getLogs_returns_empty_arraycollection()
 	{
+		$this->setOptions([
+			'optionid' => [
+				'frequency' => 5
+			]
+		]);
+
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
@@ -79,7 +96,7 @@ class LogRepoTest extends TestCase
 			$mock->expects('fetch')->andReturns(new ArrayCollection([]));
 		});
 
-		$logs = $this->digest->getLogs(5*60);
+		$logs = $this->digest->getLogs();
 
 		$this->assertTrue($logs instanceof ArrayCollection);
 		$this->assertCount(0, $logs);
@@ -87,6 +104,12 @@ class LogRepoTest extends TestCase
 
 	public function test_getLogs_returns_arraycollection()
 	{
+		$this->setOptions([
+			'optionid' => [
+				'frequency' => 5
+			]
+		]);
+
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
@@ -107,13 +130,20 @@ class LogRepoTest extends TestCase
 			$mock->expects('fetch')->andReturns(new ArrayCollection($logs));
 		});
 
-		$logs = $this->digest->getLogs(5*60);
+		$logs = $this->digest->getLogs();
 
 		$this->assertCount(2, $logs);
 	}
 
 	public function test_prepareLogs_returns_array()
 	{
+		$this->setOptions([
+			'optionid' => [
+				'deduplicate' => false,
+				'limit' => 0,
+			]
+		]);
+
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
@@ -130,7 +160,7 @@ class LogRepoTest extends TestCase
 			$this->app()->em()->create('foo'),
 		]);
 
-		$prepared = $this->digest->prepareLogs($logs, false, 0);
+		$prepared = $this->digest->prepareLogs($logs);
 
 		$this->assertIsArray($prepared);
 		$this->assertCount(2, $prepared);
@@ -138,6 +168,13 @@ class LogRepoTest extends TestCase
 
 	public function test_prepareLogs_returns_array_limited()
 	{
+		$this->setOptions([
+			'optionid' => [
+				'deduplicate' => false,
+				'limit' => 1,
+			]
+		]);
+
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
@@ -154,7 +191,7 @@ class LogRepoTest extends TestCase
 	        $this->app()->em()->create('foo'),
         ]);
 
-		$prepared = $this->digest->prepareLogs($logs, false, 1);
+		$prepared = $this->digest->prepareLogs($logs);
 
 		$this->assertIsArray($prepared);
 		$this->assertCount(1, $prepared);
@@ -162,6 +199,13 @@ class LogRepoTest extends TestCase
 
 	public function test_prepareLogs_returns_array_dedup()
 	{
+		$this->setOptions([
+			'optionid' => [
+				'deduplicate' => true,
+				'limit' => 0,
+			]
+		]);
+
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
@@ -189,7 +233,7 @@ class LogRepoTest extends TestCase
 	        $this->app()->em()->create('foo'),
         ]);
 
-		$prepared = $this->digest->prepareLogs($logs, true, 0);
+		$prepared = $this->digest->prepareLogs($logs);
 
 		$this->assertIsArray($prepared);
 		$this->assertCount(6, $prepared);
