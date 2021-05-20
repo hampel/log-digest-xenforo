@@ -13,26 +13,20 @@ class DigestCache extends Repository
 
 	public function getValue($type)
 	{
-		$data = $this->getCache()->getValue($type);
-		if (!isset($data['checked'])) $data['checked'] = 0;
-		if (!isset($data['id'])) $data['id'] = 0;
-		return $data;
+		return $this->getCache()->getValue($type);
 	}
 
 	public function getLastChecked($type)
 	{
-		return $this->getValue($type)['checked'];
-	}
+		$lastChecked = $this->getValue($type);
 
-	public function getLastId($type)
-	{
-		return $this->getValue($type)['id'];
-	}
+		// legacy support - in case cache still has old array values stored
+		if (is_array($lastChecked) && isset($lastChecked['checked']))
+		{
+			return $lastChecked['checked'];
+		}
 
-	public function reset($type)
-	{
-		$data = ['checked' => 0, 'id' => 0];
-		$this->setValue($type, $data);
+		return intval($lastChecked) ?? 0;
 	}
 
 	public function setValue($type, $data)
@@ -42,15 +36,11 @@ class DigestCache extends Repository
 
 	public function setLastChecked($type, $timestamp)
 	{
-		$data = $this->getValue($type);
-		$data['checked'] = $timestamp;
-		$this->setValue($type, $data);
+		$this->setValue($type, $timestamp);
 	}
 
-	public function setLastId($type, $id)
+	public function reset($type)
 	{
-		$data = $this->getValue($type);
-		$data['id'] = $id;
-		$this->setValue($type, $data);
+		$this->setLastChecked($type, 0);
 	}
 }

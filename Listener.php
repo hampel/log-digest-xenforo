@@ -1,10 +1,22 @@
 <?php namespace Hampel\LogDigest;
 
+use Hampel\LogDigest\SubContainer\LogDigest;
 use XF\App;
 use XF\Container;
 
 class Listener
 {
+	public static function appSetup(App $app)
+	{
+		$container = $app->container();
+
+		$container['logDigest'] = function(Container $c) use ($app)
+		{
+			$class = $app->extendClass(LogDigest::class);
+			return new $class($c, $app);
+		};
+	}
+
 	public static function appAdminSetup(App $app)
 	{
 		$container = $app->container();

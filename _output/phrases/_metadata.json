@@ -109,9 +109,9 @@
     },
     "logdigest_log_type_last_checked.txt": {
         "global_cache": false,
-        "version_id": 1,
-        "version_string": "0.1.0",
-        "hash": "bca8671d363d1a1cc8f820e7afe72790"
+        "version_id": 2010270,
+        "version_string": "2.1.2",
+        "hash": "322f5bf989a1554292543470edb25710"
     },
     "logdigest_logs.txt": {
         "global_cache": false,
@@ -169,9 +169,9 @@
     },
     "logdigest_successfully_reset.txt": {
         "global_cache": false,
-        "version_id": 1,
-        "version_string": "0.1.0",
-        "hash": "405794b77b88429d1f43ffd0dcc7f347"
+        "version_id": 2010270,
+        "version_string": "2.1.2",
+        "hash": "bddd64f8b9408bd57e029c1ee884dc74"
     },
     "logdigest_test.txt": {
         "global_cache": false,

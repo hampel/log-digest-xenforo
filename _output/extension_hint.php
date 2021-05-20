@@ -7,8 +7,3 @@ namespace Hampel\LogDigest\XF\Admin\Controller
 {
 	class XFCP_Tools extends \XF\Admin\Controller\Tools {}
 }
-
-namespace Hampel\LogDigest\XF\Repository
-{
-	class XFCP_ErrorLog extends \XF\Repository\ErrorLog {}
-}

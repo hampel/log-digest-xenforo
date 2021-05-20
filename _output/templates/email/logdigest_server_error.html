@@ -12,22 +12,21 @@
 <xf:if is="$test">{{ phrase('logdigest_test_message') }}</xf:if>
 <br />
 <xf:if is="$logs is not empty">
-	<xf:foreach loop="$logs" value="$entry">
+	<xf:foreach loop="$logs" value="$log">
 		<hr />
-		<xf:set var="$id" value="{$entry.getEntityId()}" />		
-		<xf:if is="{$extra.{$id}.duplicate}">
-			<b>{{ phrase('logdigest_duplicate_entry') }}</b>: {{ $extra.{$id}.date }}
+		<xf:if is="{$log.duplicate}">
+			<b>{{ phrase('logdigest_duplicate_entry') }}</b>: {{ $log.dateFormatted }}
 		<xf:else />		
-			<h2>{$entry.exception_type}</h2>
-			<b>{{ phrase('logdigest_message') }}</b>: {$entry.message}<br />
-			<b>{{ phrase('logdigest_file') }}</b>: <span style="font-family: monospace;">{$entry.filename}:{$entry.line|number}</span><br />
-			<b>{{ phrase('generated_by') }}</b>: {{ $entry.User ? '<a href="' . link_type('admin', 'canonical:users/edit', $entry.User) . '">' . $entry.User.username . '</a>' : phrase('unknown_account') }}<br />
-			<b>{{ phrase('logdigest_log_date') }}</b>: {{ $extra.{$id}.date }}<br />
-			<div style="text-align: center;"><a href="{{ link_type('admin', 'canonical:' . $route, $entry) }}" class="button">{{ phrase('logdigest_view_this_error') }}</a></div>
+			<h2>{$log.exception_type}</h2>
+			<b>{{ phrase('logdigest_message') }}</b>: {$log.message}<br />
+			<b>{{ phrase('logdigest_file') }}</b>: <span style="font-family: monospace;">{$log.filename}:{$log.line|number}</span><br />
+			<b>{{ phrase('generated_by') }}</b>: {{ $log.User ? '<a href="' . link_type('admin', 'canonical:users/edit', $log.User) . '">' . $log.User.username . '</a>' : phrase('unknown_account') }}<br />
+			<b>{{ phrase('logdigest_log_date') }}</b>: {{ $log.dateFormatted }}<br />
+			<div style="text-align: center;"><a href="{{ link_type('admin', 'canonical:' . $route, $log) }}" class="button">{{ phrase('logdigest_view_this_error') }}</a></div>
 			<h2>{{ phrase('stack_trace') }}</h2>
-			<pre style="font-family: monospace; word-wrap: break-word; white-space: pre-wrap;">{$entry.trace_string}</pre>
+			<pre style="font-family: monospace; word-wrap: break-word; white-space: pre-wrap;">{$log.trace_string}</pre>
 			<h2>{{ phrase('request_state') }}</h2>
-			{{ dump_simple($entry.request_state) }}<br />
+			{{ dump_simple($log.request_state) }}<br />
 		</xf:if>
 	</xf:foreach>
 <xf:else />

@@ -15,8 +15,7 @@
 				<xf:foreach loop="$types" key="$type" value="$log">
 					<xf:option label="{{ phrase('logdigest_log_type_last_checked', {
 									  	'name': $log.name,
-									  	'lastupdated': $log.lastchecked ? $log.lastchecked : 'never',
-									  	'lastid': $log.lastid ? $log.lastid : 'none'
+									  	'lastupdated': $log.lastChecked ? $log.lastCheckedFormatted : 'never'
 									  }) }}"
 							   name="options[{$type}]" />
 				</xf:foreach>	

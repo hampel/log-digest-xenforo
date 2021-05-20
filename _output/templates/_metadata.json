@@ -1,8 +1,8 @@
 {
     "admin/logdigest_tools_reset_logdigest.html": {
-        "version_id": 3,
-        "version_string": "1.0.1",
-        "hash": "0d0aea92c1bb90dc306e5570ef05ef84"
+        "version_id": 2010270,
+        "version_string": "2.1.2",
+        "hash": "ed0708dd4385ede4c0637faefb5e8be7"
     },
     "admin/logdigest_tools_test_logdigest.html": {
         "version_id": 2000070,
@@ -15,8 +15,8 @@
         "hash": "d0c47abf6ebffb66d96dbb135da8a491"
     },
     "email/logdigest_server_error.html": {
-        "version_id": 1,
-        "version_string": "0.1.0",
-        "hash": "b66aab4a4518ed608c65fe4d0b79c1a1"
+        "version_id": 2010270,
+        "version_string": "2.1.2",
+        "hash": "b7a10a02874adcaf6472cd788a5fbcd7"
     }
 }

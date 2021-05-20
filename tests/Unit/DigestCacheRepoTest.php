@@ -30,10 +30,7 @@ class DigestCacheRepoTest extends TestCase
 		$this->fakesSimpleCache();
 
 		$value = $this->cache->getValue('foo');
-		$this->assertArrayHasKey('checked', $value);
-		$this->assertArrayHasKey('id', $value);
-		$this->assertEquals(0, $value['checked']);
-		$this->assertEquals(0, $value['id']);
+		$this->assertEquals(0, $value);
 	}
 
 	public function test_setValue_sets_data()
@@ -49,21 +46,26 @@ class DigestCacheRepoTest extends TestCase
 	{
 		$this->fakesSimpleCache();
 
-		$this->cache->setValue('foo', ['checked' => 2, 'id' => 3]);
-		$this->assertEquals(2, $this->cache->getLastChecked('foo'));
-		$this->assertEquals(3, $this->cache->getLastId('foo'));
+		$this->cache->setValue('foo1', 2);
+		$this->assertEquals(2, $this->cache->getLastChecked('foo1'));
 
-		$this->cache->setLastChecked('foo', 4);
-		$this->assertEquals(4, $this->cache->getLastChecked('foo'));
-		$this->assertEquals(3, $this->cache->getLastId('foo'));
+		$this->cache->setLastChecked('foo2', 3);
+		$this->assertEquals(3, $this->cache->getLastChecked('foo2'));
 
-		$this->cache->setLastId('foo', 5);
-		$this->assertEquals(5, $this->cache->getLastId('foo'));
-		$this->assertEquals(4, $this->cache->getLastChecked('foo'));
+		// legacy data check
+		$this->cache->setValue('foo3', ['checked' => 4, 'id' => 5]);
+		$this->assertEquals(4, $this->cache->getLastChecked('foo3'));
+	}
+
+	public function test_reset_returns_zero()
+	{
+		$this->fakesSimpleCache();
+
+		$this->cache->setValue('foo', 6);
+		$this->assertEquals(6, $this->cache->getValue('foo'));
 
 		$this->cache->reset('foo');
-		$this->assertEquals(0, $this->cache->getLastChecked('foo'));
-		$this->assertEquals(0, $this->cache->getLastId('foo'));
+		$this->assertEquals(0, $this->cache->getValue('foo'));
 	}
 
 }
