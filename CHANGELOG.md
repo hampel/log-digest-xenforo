@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+3.0.0 (2021-05-20)
+------------------
+
+* complete rebuild to support multiple log types and to make log collection more robust
+
 2.1.2 (2020-05-16)
 ------------------
 
