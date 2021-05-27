@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.1.0 (2021-05-28)
+------------------
+
+* major logic change - addon now sends most recent logs rather than oldest logs
+* added support for Admin Log digest
+
 3.0.1 (2021-05-20)
 ------------------
 
