@@ -1,0 +1,18 @@
+{
+    "edit_format": "template",
+    "edit_format_params": "option_template_logdigestAdminLog",
+    "data_type": "array",
+    "sub_options": [
+        "enabled",
+        "frequency",
+        "limit",
+        "deduplicate"
+    ],
+    "validation_class": "",
+    "validation_method": "",
+    "advanced": false,
+    "default_value": "{\"enabled\":false,\"frequency\":360,\"limit\":25,\"deduplicate\":true}",
+    "relations": {
+        "logdigest": 105
+    }
+}

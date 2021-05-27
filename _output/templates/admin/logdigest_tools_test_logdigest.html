@@ -36,9 +36,31 @@
 	<xf:hiddenval name="test">Hampel\LogDigest:ServerErrorLog</xf:hiddenval>
 </xf:form>
 
+<xf:form action="{{ link('tools/test-logdigest') }}" class="block">
+	<div class="block-container">
+		<h2 class="block-header">{{ phrase('admin_log') }}</h2>
+		<div class="block-body">
+			<xf:textboxrow label="{{ phrase('email') }}" 
+						   name="options[email]" 
+						   value="{$options.email}" 
+						   explain="{{ phrase('logdigest_test_email_hint') }}" />
+
+			<xf:comment>
+			<xf:checkboxrow standalone="true" 
+							label="{{ phrase('logdigest_options') }}">
+				<xf:option label="{{ phrase('logdigest_generate_test_exception') }}"
+						   hint="{{ phrase('logdigest_test_exception_hint') }}" 
+						   name="options[generate]" 
+						   selected="{$options.generate}" />
+			</xf:checkboxrow>
+			</xf:comment>
+			
+			<xf:numberboxrow name="options[limit]" value="{$options.limit}" min="0" max="200"
+				label="{{ phrase('logdigest_limit') }}"
+				explain="{{ phrase('logdigest_limit_explain') }}" />
 			
 		</div>		
-		<xf:submitrow submit="{{ phrase('logdigest_test') }}" />
+		<xf:submitrow submit="{{ phrase('logdigest_send_test_email') }}" />
 	</div>
-	<xf:hiddenval name="test">Hampel\LogDigest:DigestTest</xf:hiddenval>
+	<xf:hiddenval name="test">Hampel\LogDigest:AdminLog</xf:hiddenval>
 </xf:form>

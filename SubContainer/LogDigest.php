@@ -27,10 +27,10 @@ class LogDigest extends AbstractSubContainer
 		$container['digest.list'] = function(Container $c)
 		{
 			$digestList = [
-				'server_error' => 'Hampel\LogDigest:ServerError',
+				'server_error_log' => 'Hampel\LogDigest:ServerErrorLog',
+				'admin_log' => 'Hampel\LogDigest:AdminLog'
 			];
 
-			// TODO: admin log
 			// TODO: moderator log
 			// TODO: email bounce log?
 			// TODO: payment provider log?

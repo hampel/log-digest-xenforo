@@ -1,0 +1,25 @@
+<xf:macro template="logdigest_macros" name="subject" arg-test="{$test}" arg-type="{$type}" />
+
+<xf:macro template="logdigest_macros" name="header" arg-test="{$test}" arg-route="{$route}" arg-type="{$type}" />
+
+<xf:if is="$logs is not empty">
+	<xf:foreach loop="$logs" value="$log">
+		<hr />
+		<xf:if is="{$log.duplicate}">
+			<b>{{ phrase('logdigest_duplicate_entry') }}</b>: {{ $log.dateFormatted }}
+		<xf:else />
+			<h2>{$log.request_url}</h2>
+			<b>{{ phrase('generated_by') }}</b>: {{ $log.user_id ? '<a href="' . link('canonical:members', {'user_id': $log.user_id}) . '">' . $log.username . '</a>' : phrase('unknown_account') }}<br />
+			<b>{{ phrase('ip_address') }}</b>: {$log.ip_address|ip}<br />
+			<b>{{ phrase('logdigest_log_date') }}</b>: {{ $log.dateFormatted }}<br />
+			<div style="text-align: center;"><a href="{{ link_type('admin', 'canonical:' . $route, $log) }}" class="button">{{ phrase('logdigest_view_this_log') }}</a></div>
+			
+			<xf:comment>
+				<h2>{{ phrase('request_data') }}</h2>
+				{{ dump_simple($log.request_data) }}<br />
+			</xf:comment>
+		</xf:if>
+	</xf:foreach>
+<xf:else />
+	{{ phrase('logdigest_no_logs_found') }}
+</xf:if>
