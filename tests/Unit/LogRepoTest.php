@@ -87,12 +87,12 @@ class LogRepoTest extends TestCase
 
 		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
 			$mock->expects('getLastChecked')->with('entity id')->andReturns($time->copy()->subMinutes(10)->timestamp);
-			$mock->expects('setLastChecked')->with('entity id', $time->timestamp);
 		});
 
 		$this->mockFinder('entity id', function ($mock) use ($time) {
 			$mock->expects('where')->with('timestamp column', '>', $time->copy()->subMinutes(10)->timestamp)->andReturns($mock);
-			$mock->expects('order')->with('timestamp column', 'ASC')->andReturns($mock);
+			$mock->expects('order')->with('timestamp column', 'DESC')->andReturns($mock);
+			$mock->expects('limit')->with(200)->andReturns($mock);
 			$mock->expects('fetch')->andReturns(new ArrayCollection([]));
 		});
 
@@ -126,7 +126,8 @@ class LogRepoTest extends TestCase
 
 		$this->mockFinder('entity id', function ($mock) use ($logs, $time) {
 			$mock->expects('where')->with('timestamp column', '>', $time->copy()->subMinutes(6)->timestamp)->andReturns($mock);
-			$mock->expects('order')->with('timestamp column', 'ASC')->andReturns($mock);
+			$mock->expects('order')->with('timestamp column', 'DESC')->andReturns($mock);
+			$mock->expects('limit')->with(200)->andReturns($mock);
 			$mock->expects('fetch')->andReturns(new ArrayCollection($logs));
 		});
 
@@ -147,12 +148,16 @@ class LogRepoTest extends TestCase
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
-		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
-			$mock->expects('setLastChecked')->with('entity id', 4000000);
+//		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
+//			$mock->expects('setLastChecked')->with('entity id', 4000000);
+//		});
+
+		$user = $this->mockEntity('XF:User', true, function ($mock) {
+			$mock->expects()->get('username')->twice()->andReturn(['username1', 'username2']);
 		});
 
-		$this->mockEntity('foo', false, function ($mock) {
-			$mock->expects()->toArray()->twice()->andReturn(['a' => 1, 'timestamp column' => 2000000], ['a' => 3, 'timestamp column' => 4000000]);
+		$this->mockEntity('foo', false, function ($mock) use ($user) {
+			$mock->expects()->toArray()->twice()->andSet('User', $user)->andReturn(['a' => 1, 'timestamp column' => 2000000], ['a' => 3, 'timestamp column' => 4000000]);
 		});
 
 		$logs = new ArrayCollection([
@@ -178,12 +183,16 @@ class LogRepoTest extends TestCase
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
-		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
-			$mock->expects('setLastChecked')->with('entity id', 2000000);
+//		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
+//			$mock->expects('setLastChecked')->with('entity id', 2000000);
+//		});
+
+		$user = $this->mockEntity('XF:User', true, function ($mock) {
+			$mock->expects()->get('username')->once()->andReturn(['username1']);
 		});
 
-		$this->mockEntity('foo', false, function ($mock) {
-			$mock->expects()->toArray()->once()->andReturn(['a' => 1, 'timestamp column' => 2000000]);
+		$this->mockEntity('foo', false, function ($mock) use ($user) {
+			$mock->expects()->toArray()->once()->andSet('User', $user)->andReturn(['a' => 1, 'timestamp column' => 2000000]);
 		});
 
 		$logs = new ArrayCollection([
@@ -209,12 +218,16 @@ class LogRepoTest extends TestCase
 		$time = Carbon::now();
 		$this->setTestTime($time);
 
-		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
-			$mock->expects('setLastChecked')->with('entity id', 6000000);
+//		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
+//			$mock->expects('setLastChecked')->with('entity id', 6000000);
+//		});
+
+		$user = $this->mockEntity('XF:User', true, function ($mock) {
+			$mock->expects()->get('username')->times(6)->andReturn(['username1', 'username2', 'username3', 'username1', 'username1', 'username1']);
 		});
 
-		$this->mockEntity('foo', false, function ($mock) {
-			$mock->expects()->toArray()->times(6)->andReturn(
+		$this->mockEntity('foo', false, function ($mock) use ($user) {
+			$mock->expects()->toArray()->times(6)->andSet('User', $user)->andReturn(
 				['field1' => 1, 'field2' => 'a', 'field3' => true, 'timestamp column' => 1000000],
 				['field1' => 2, 'field2' => 'b', 'field3' => false, 'timestamp column' => 2000000],
 				['field1' => 1, 'field2' => 'c', 'field3' => true, 'timestamp column' => 3000000],
