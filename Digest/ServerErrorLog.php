@@ -1,6 +1,6 @@
 <?php namespace Hampel\LogDigest\Digest;
 
-class ServerError extends AbstractDigest
+class ServerErrorLog extends AbstractDigest
 {
 	protected function getOptionId()
 	{

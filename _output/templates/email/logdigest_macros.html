@@ -1,0 +1,17 @@
+<xf:macro name="subject" arg-test="!" arg-type="!">
+	<mail:subject>
+		<xf:if is="$test">{{ phrase('logdigest_test_prefix') }} </xf:if>{{ phrase('logdigest_email_subject', {
+			'type': $type,
+			'board': $xf.options.boardTitle
+		}) }}
+	</mail:subject>	
+</xf:macro>
+
+<xf:macro name="header" arg-test="!" arg-route="!" arg-type="!">
+	<xf:if is="$test">{{ phrase('logdigest_test_prefix') }} </xf:if>
+	{{ phrase('logdigest_recent_logs', {
+		'type': '<a href="' . link_type('admin', 'canonical:' . $route) . '">' . $type . '</a>',
+		'board': '<a href="' . link('canonical:index') . '">' . $xf.options.boardTitle . '</a>'
+	}) }}
+	<br />
+</xf:macro>

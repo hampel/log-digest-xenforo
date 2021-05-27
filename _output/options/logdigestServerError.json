@@ -10,6 +10,7 @@
     ],
     "validation_class": "",
     "validation_method": "",
+    "advanced": false,
     "default_value": "{\"enabled\":true,\"frequency\":5,\"limit\":10,\"deduplicate\":true}",
     "relations": {
         "logdigest": 100

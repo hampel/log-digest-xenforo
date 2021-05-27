@@ -1,1 +1,1 @@
-How often (in minutes) the system should check for new log files and then email them. Lower values are good for alerting you more quickly to issues, but risks flooding your inbox. Suggested value is between 5 - 15 minutes for more frequent alerts - or if only looking for summaries, try 1 hour = 60; 1 day = 1440; or 1 week = 10,080)
+Minutes between checks for new log files. 1 hour = 60; 1 day = 1440; 1 week = 10,080

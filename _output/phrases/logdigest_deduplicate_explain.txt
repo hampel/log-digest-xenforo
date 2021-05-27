@@ -1,1 +1,1 @@
-Compress consecutive identical logs into a single log entry in the emails
+Skip identical log entries

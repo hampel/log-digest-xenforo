@@ -5,18 +5,33 @@
         "hash": "ed0708dd4385ede4c0637faefb5e8be7"
     },
     "admin/logdigest_tools_test_logdigest.html": {
-        "version_id": 2000070,
-        "version_string": "2.0.0",
-        "hash": "cef6120941bfd3f4f2e47f85acdd6e10"
+        "version_id": 3000170,
+        "version_string": "3.0.1",
+        "hash": "c6b43421f3f01aa483e4736abc046d0c"
+    },
+    "admin/option_template_logdigestAdminLog.html": {
+        "version_id": 3000170,
+        "version_string": "3.0.1",
+        "hash": "b46436c3e3050059e52106ddc4213c20"
     },
     "admin/option_template_logdigestServerError.html": {
         "version_id": 2000070,
         "version_string": "2.0.0",
         "hash": "d0c47abf6ebffb66d96dbb135da8a491"
     },
+    "email/logdigest_admin_log.html": {
+        "version_id": 3000170,
+        "version_string": "3.0.1",
+        "hash": "158c44fa8cf7635519c5b0ae16149dc1"
+    },
+    "email/logdigest_macros.html": {
+        "version_id": 3000170,
+        "version_string": "3.0.1",
+        "hash": "99a92795cdd0b23fc75217dc0c53a110"
+    },
     "email/logdigest_server_error.html": {
-        "version_id": 2010270,
-        "version_string": "2.1.2",
-        "hash": "b7a10a02874adcaf6472cd788a5fbcd7"
+        "version_id": 3000170,
+        "version_string": "3.0.1",
+        "hash": "0440d6c255e65caea5b29af9932577bd"
     }
 }

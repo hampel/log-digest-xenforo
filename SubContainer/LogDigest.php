@@ -82,6 +82,8 @@ class LogDigest extends AbstractSubContainer
 				$digest->send($filteredLogs, $email);
 
 				Log::info("Sent logs", ['class' => $class, 'email' => $email, 'count' => $count]);
+
+				$digest->updateLastChecked(\XF::$time);
 			}
 		}
 	}

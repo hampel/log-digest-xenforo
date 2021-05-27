@@ -1,28 +1,19 @@
-<mail:subject>
-	<xf:if is="$test">{{ phrase('logdigest_test_prefix') }} </xf:if>{{ phrase('logdigest_email_subject', {
-		'type': $type,
-		'board': $xf.options.boardTitle
-	}) }}
-</mail:subject>
+<xf:macro template="logdigest_macros" name="subject" arg-test="{$test}" arg-type="{$type}" />
 
-{{ phrase('logdigest_recent_logs', {
-	'type': '<a href="' . link_type('admin', 'canonical:' . $route) . '">' . $type . '</a>',
-	'board': '<a href="' . link('canonical:index') . '">' . $xf.options.boardTitle . '</a>'
-}) }}<br />
-<xf:if is="$test">{{ phrase('logdigest_test_message') }}</xf:if>
-<br />
+<xf:macro template="logdigest_macros" name="header" arg-test="{$test}" arg-route="{$route}" arg-type="{$type}" />
+
 <xf:if is="$logs is not empty">
 	<xf:foreach loop="$logs" value="$log">
 		<hr />
 		<xf:if is="{$log.duplicate}">
 			<b>{{ phrase('logdigest_duplicate_entry') }}</b>: {{ $log.dateFormatted }}
-		<xf:else />		
+		<xf:else />
 			<h2>{$log.exception_type}</h2>
 			<b>{{ phrase('logdigest_message') }}</b>: {$log.message}<br />
 			<b>{{ phrase('logdigest_file') }}</b>: <span style="font-family: monospace;">{$log.filename}:{$log.line|number}</span><br />
-			<b>{{ phrase('generated_by') }}</b>: {{ $log.User ? '<a href="' . link_type('admin', 'canonical:users/edit', $log.User) . '">' . $log.User.username . '</a>' : phrase('unknown_account') }}<br />
+			<b>{{ phrase('generated_by') }}</b>: {{ $log.user_id ? '<a href="' . link('canonical:members', {'user_id': $log.user_id}) . '">' . $log.username . '</a>' : phrase('unknown_account') }}<br />
 			<b>{{ phrase('logdigest_log_date') }}</b>: {{ $log.dateFormatted }}<br />
-			<div style="text-align: center;"><a href="{{ link_type('admin', 'canonical:' . $route, $log) }}" class="button">{{ phrase('logdigest_view_this_error') }}</a></div>
+			<div style="text-align: center;"><a href="{{ link_type('admin', 'canonical:' . $route, $log) }}" class="button">{{ phrase('logdigest_view_this_log') }}</a></div>
 			<h2>{{ phrase('stack_trace') }}</h2>
 			<pre style="font-family: monospace; word-wrap: break-word; white-space: pre-wrap;">{$log.trace_string}</pre>
 			<h2>{{ phrase('request_state') }}</h2>

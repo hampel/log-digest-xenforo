@@ -11,12 +11,12 @@
 
 <xf:form action="{{ link('tools/test-logdigest') }}" class="block">
 	<div class="block-container">
-		<h2 class="block-header">{{ phrase('logdigest_send_test_email') }}</h2>
+		<h2 class="block-header">{{ phrase('server_error_log') }}</h2>
 		<div class="block-body">
 			<xf:textboxrow label="{{ phrase('email') }}" 
 						   name="options[email]" 
 						   value="{$options.email}" 
-						   hint="{{ phrase('logdigest_test_email_hint') }}" />
+						   explain="{{ phrase('logdigest_test_email_hint') }}" />
 			
 			<xf:checkboxrow standalone="true" 
 							label="{{ phrase('logdigest_options') }}">
@@ -25,6 +25,17 @@
 						   name="options[generate]" 
 						   selected="{$options.generate}" />
 			</xf:checkboxrow>
+			
+			<xf:numberboxrow name="options[limit]" value="{$options.limit}" min="0" max="200"
+				label="{{ phrase('logdigest_limit') }}"
+				explain="{{ phrase('logdigest_limit_explain') }}" />
+			
+		</div>		
+		<xf:submitrow submit="{{ phrase('logdigest_send_test_email') }}" />
+	</div>
+	<xf:hiddenval name="test">Hampel\LogDigest:ServerErrorLog</xf:hiddenval>
+</xf:form>
+
 			
 		</div>		
 		<xf:submitrow submit="{{ phrase('logdigest_test') }}" />

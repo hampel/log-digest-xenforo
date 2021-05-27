@@ -15,7 +15,8 @@ class Tools extends XFCP_Tools
 		$test = '';
 		$options = [
 			'email' => \XF::visitor()->email,
-			'generate' => true,
+			'generate' => false,
+			'limit' => 10
 		];
 
 		if ($this->isPost())
@@ -27,7 +28,7 @@ class Tools extends XFCP_Tools
 			$tester = $this->app->container()->create('logdigest.test', $test, [$this, $options]);
 			if ($tester)
 			{
-				$results = $tester->run();
+				$results = $tester->runTest();
 				$messages = $tester->getMessages();
 			}
 			else

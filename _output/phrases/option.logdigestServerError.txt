@@ -1,1 +1,1 @@
-Server error logs
+Server error log

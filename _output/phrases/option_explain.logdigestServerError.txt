@@ -1,1 +1,0 @@
-Sends Server Error logs to the address specified on the selected frequency.

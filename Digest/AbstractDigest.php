@@ -90,39 +90,36 @@ abstract class AbstractDigest
 		if ($logs->count() == 0)
 		{
 			Log::debug('No new logs found', ['log' => strval($this->getLogName()), 'lastChecked' => $lastChecked, 'time' => \XF::$time]);
-
-			// update the last checked time so we don't keep retrying
-			$this->updateLastChecked(\XF::$time);
 		}
 
 		return $logs;
 	}
 
-	protected function fetchLogs($timestamp)
+	public function fetchLogs($timestamp, $limit = 200)
 	{
 		$column = $this->getTimestampColumn();
 
 		return $this->app->finder($this->getEntityId())
 		                 ->where($column, '>', $timestamp)
-		                 ->order($column, 'ASC')
+		                 ->order($column, 'DESC')
+						 ->limit($limit)
 		                 ->fetch();
 	}
 
 	/**
 	 * @param ArrayCollection $logs collection of logs to filter
-	 * @param bool $update flag to indicate whether to update the last sent time (set to false when testing)
+	 * @param null $limit maximum number of logs to include
 	 *
-	 * @return ArrayCollection
+	 * @return array
 	 */
-	public function prepareLogs($logs, $update = true)
+	public function prepareLogs(ArrayCollection $logs, $limit = null)
 	{
 		$filteredLogs = [];
 		$previousLogs = [];
 		$logCount = 0;
-		$lastTimestamp = 0;
 
 		$deduplicate = $this->deduplicate();
-		$limit = $this->limit();
+		$limit = $limit ?? $this->limit();
 
 		foreach ($logs as $log)
 		{
@@ -130,6 +127,7 @@ abstract class AbstractDigest
 
 			$timestamp = $thisLog[$this->getTimestampColumn()];
 			$thisLog['dateFormatted'] = $this->formatDate($timestamp);
+			$thisLog['username'] = $log->User ? $log->User->username : '';
 
 			$thisLog['duplicate'] = false;
 
@@ -148,7 +146,7 @@ abstract class AbstractDigest
 						if ($logDataForComparison === $previousLog)
 						{
 							$thisLog['duplicate'] = true;
-							continue;
+							break;
 						}
 					}
 				}
@@ -164,19 +162,11 @@ abstract class AbstractDigest
 
 			$filteredLogs[] = $thisLog;
 
-			$lastTimestamp = $timestamp;
-
 			// stop if we've reached our limit
 			if ($limit > 0 && $logCount >= $limit)
 			{
 				break;
 			}
-		}
-
-		// if we found some logs - cache the time of the last log we're sending so we know where to start in future
-		if ($update && $lastTimestamp > 0)
-		{
-			$this->updateLastChecked($timestamp);
 		}
 
 		return $filteredLogs;
@@ -193,14 +183,15 @@ abstract class AbstractDigest
 	/**
 	 * @param array $logs array of prepared logs
 	 * @param string $email email address to send to
+	 * @param bool $test flag to indicate if this is a test email
 	 *
 	 * @return int
 	 */
-	public function send(array $logs, $email)
+	public function send(array $logs, $email, $test = false)
 	{
 		if (!empty($logs))
 		{
-			$params = $this->buildParameters($logs);
+			$params = $this->buildParameters($logs, $test);
 
 			return $this->app->mailer()
 			                 ->newMail()
@@ -210,13 +201,14 @@ abstract class AbstractDigest
 		}
 	}
 
-	protected function buildParameters(array $logs)
+	protected function buildParameters(array $logs, $test = false)
 	{
 		return [
 			'type' => $this->getLogName(),
 			'route' => $this->getRoute(),
 			'logs' => $logs,
 			'duplicateCount' => $this->countDuplicates($logs),
+			'test' => $test
 		];
 	}
 
@@ -230,7 +222,7 @@ abstract class AbstractDigest
 		return false;
 	}
 
-	protected function countDuplicates($logs)
+	public function countDuplicates($logs)
 	{
 		$count = 0;
 
@@ -282,7 +274,7 @@ abstract class AbstractDigest
 	/**
 	 * @param $timestamp int timestamp of last sent log (or time we last checked for new logs)
 	 */
-	protected function updateLastChecked($timestamp)
+	public function updateLastChecked($timestamp)
 	{
 		if (!$timestamp) return;
 

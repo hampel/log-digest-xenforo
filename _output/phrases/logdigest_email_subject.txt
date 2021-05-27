@@ -1,1 +1,1 @@
-{type} log digest from {board}
+{type} digest from {board}
