@@ -26,7 +26,7 @@ class DigestCache extends Repository
 			return $lastChecked['checked'];
 		}
 
-		return intval($lastChecked) ?? 0;
+		return intval($lastChecked ?? 0);
 	}
 
 	public function setValue($type, $data)
