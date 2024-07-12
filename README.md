@@ -8,4 +8,4 @@ Supported logs:
   * Server error log
   * Admin log
 
-By [Simon Hampel](https://twitter.com/SimonHampel).
+By [Simon Hampel](https://xenforo.com/community/members/sim.4264/).
