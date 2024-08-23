@@ -2,15 +2,15 @@
     "legacy_addon_id": "LogDigest",
     "title": "Log Digest",
     "description": "Sends XenForo logs to administrators via email",
-    "version_id": 3010070,
-    "version_string": "3.1.0",
+    "version_id": 3010170,
+    "version_string": "3.1.1",
     "dev": "Simon Hampel",
     "dev_url": "https://xenforo.com/community/members/sim.4264/",
     "faq_url": "",
-    "support_url": "https://bitbucket.org/hampel/log-digest-xenforo/issues",
+    "support_url": "https://xenforo.com/community/threads/log-digest.142230/",
     "extra_urls": {
-        "Git Repository": "https://bitbucket.org/hampel/log-digest-xenforo",
-        "Twitter": "https://twitter.com/SimonHampel"
+        "Addon": "https://xenforo.com/community/resources/log-digest.6130/",
+        "Git Repository": "https://github.com/hampel/log-digest-xenforo"
     },
     "require": {
         "php": [
