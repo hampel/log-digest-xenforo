@@ -9,6 +9,7 @@ class Tools extends XFCP_Tools
 	public function actionTestLogDigest()
 	{
 		$this->setSectionContext('testLogDigest');
+        $this->assertAdminPermission('option');
 
 		$messages = [];
 		$results = false;
@@ -44,6 +45,7 @@ class Tools extends XFCP_Tools
 	public function actionResetLogDigest()
 	{
 		$this->setSectionContext('resetLogDigest');
+        $this->assertAdminPermission('option');
 
 		/** @var LogDigest $digest */
 		$digest = \XF::app()->get('logDigest');
