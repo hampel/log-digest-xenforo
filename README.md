@@ -9,3 +9,7 @@ Supported logs:
   * Admin log
 
 By [Simon Hampel](https://xenforo.com/community/members/sim.4264/).
+
+* [Addon: Log Digest](https://xenforo.com/community/resources/log-digest.6130/)
+* [Discussion and support: Log Digest](https://xenforo.com/community/threads/log-digest.142230/)
+
