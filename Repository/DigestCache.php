@@ -8,7 +8,7 @@ class DigestCache extends Repository
 	/** @return SimpleCacheSet */
 	public function getCache()
 	{
-		return \XF::app()->simpleCache()->getSet('Hampel/LogDigest');
+		return $this->app()->simpleCache()->getSet('Hampel/LogDigest');
 	}
 
 	public function getValue($type)
