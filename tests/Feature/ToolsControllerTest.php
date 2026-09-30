@@ -127,6 +127,21 @@ class ToolsControllerTest extends TestCase
 		$this->assertSimpleCacheEqual(2000, 'Hampel/LogDigest', 'XF:AdminLog');
 	}
 
+	public function test_the_reset_tool_ignores_an_unknown_log_type()
+	{
+		$this->actingAsOptionAdmin();
+		$repo = $this->app()->repository('Hampel\LogDigest:DigestCache');
+		$repo->setLastChecked('XF:ErrorLog', 1000);
+
+		$reply = $this->callAction('XF:Tools', 'reset-logdigest', 'admin', [
+			'options' => ['no_such_log' => 1, 'server_error_log' => 1],
+		]);
+
+		$this->assertReplyTemplate($reply, 'logdigest_tools_reset_logdigest');
+		$this->assertCount(1, $this->replyParam($reply, 'messages'));
+		$this->assertSimpleCacheEqual(0, 'Hampel/LogDigest', 'XF:ErrorLog');
+	}
+
 	protected function actingAsOptionAdmin(array $values = [])
 	{
 		$admin = $this->actingAsMember(['is_admin' => true] + $values);

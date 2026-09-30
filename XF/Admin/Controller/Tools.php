@@ -61,7 +61,7 @@ class Tools extends XFCP_Tools
 
 			foreach ($options as $type => $reset)
 			{
-				if ($reset)
+				if ($reset && isset($types[$type]))
 				{
 					$digest->reset($type);
 					$messages[] = ['type' => 'success', 'message' => \XF::phrase('logdigest_successfully_reset', ['log' => $types[$type]['name']])];
