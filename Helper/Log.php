@@ -53,7 +53,7 @@ class Log
 	}
 
 	/**
-	 * @return \Hampel\NativeAds\SubContainer\Log
+	 * @return \Hampel\LogDigest\SubContainer\Log
 	 */
 	public static function getLogger()
 	{
