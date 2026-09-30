@@ -79,7 +79,14 @@ class LogDigest extends AbstractSubContainer
 			if ($count > 0)
 			{
 				$filteredLogs = $digest->prepareLogs($logs);
-				$digest->send($filteredLogs, $email);
+
+				// leave last checked alone on failure, so the next run retries the same logs
+				if (!$digest->send($filteredLogs, $email))
+				{
+					Log::warning("Failed to send logs", ['class' => $class, 'email' => $email, 'count' => $count]);
+
+					return;
+				}
 
 				Log::info("Sent logs", ['class' => $class, 'email' => $email, 'count' => $count]);
 
