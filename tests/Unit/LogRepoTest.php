@@ -1,6 +1,5 @@
 <?php namespace Tests\Unit;
 
-use Carbon\Carbon;
 use Hampel\LogDigest\Digest\AbstractDigest;
 use Hampel\LogDigest\Repository\Log;
 use Tests\TestCase;
@@ -64,11 +63,11 @@ class LogRepoTest extends TestCase
 			]
 		]);
 
-		$time = Carbon::now();
+		$time = \XF::$time;
 		$this->setTestTime($time);
 
 		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
-			$mock->expects('getLastChecked')->with('Hampel\LogDigest:TestLog')->andReturns($time->copy()->subMinutes(3)->timestamp);
+			$mock->expects('getLastChecked')->with('Hampel\LogDigest:TestLog')->andReturns($time - 3 * 60);
 		});
 
 		$this->assertNull($this->digest->getLogs());
@@ -82,15 +81,15 @@ class LogRepoTest extends TestCase
 			]
 		]);
 
-		$time = Carbon::now();
+		$time = \XF::$time;
 		$this->setTestTime($time);
 
 		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
-			$mock->expects('getLastChecked')->with('Hampel\LogDigest:TestLog')->andReturns($time->copy()->subMinutes(10)->timestamp);
+			$mock->expects('getLastChecked')->with('Hampel\LogDigest:TestLog')->andReturns($time - 10 * 60);
 		});
 
 		$this->mockFinder('Hampel\LogDigest:TestLog', function ($mock) use ($time) {
-			$mock->expects('where')->with('timestamp column', '>', $time->copy()->subMinutes(10)->timestamp)->andReturns($mock);
+			$mock->expects('where')->with('timestamp column', '>', $time - 10 * 60)->andReturns($mock);
 			$mock->expects('order')->with('timestamp column', 'DESC')->andReturns($mock);
 			$mock->expects('limit')->with(200)->andReturns($mock);
 			$mock->expects('fetch')->andReturns(new ArrayCollection([]));
@@ -110,11 +109,11 @@ class LogRepoTest extends TestCase
 			]
 		]);
 
-		$time = Carbon::now();
+		$time = \XF::$time;
 		$this->setTestTime($time);
 
 		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
-			$mock->expects('getLastChecked')->with('Hampel\LogDigest:TestLog')->andReturns($time->copy()->subMinutes(6)->timestamp);
+			$mock->expects('getLastChecked')->with('Hampel\LogDigest:TestLog')->andReturns($time - 6 * 60);
 		});
 
 		$this->mockEntity('foo', false);
@@ -125,7 +124,7 @@ class LogRepoTest extends TestCase
 		];
 
 		$this->mockFinder('Hampel\LogDigest:TestLog', function ($mock) use ($logs, $time) {
-			$mock->expects('where')->with('timestamp column', '>', $time->copy()->subMinutes(6)->timestamp)->andReturns($mock);
+			$mock->expects('where')->with('timestamp column', '>', $time - 6 * 60)->andReturns($mock);
 			$mock->expects('order')->with('timestamp column', 'DESC')->andReturns($mock);
 			$mock->expects('limit')->with(200)->andReturns($mock);
 			$mock->expects('fetch')->andReturns(new ArrayCollection($logs));
@@ -145,7 +144,7 @@ class LogRepoTest extends TestCase
 			]
 		]);
 
-		$time = Carbon::now();
+		$time = \XF::$time;
 		$this->setTestTime($time);
 
 //		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
@@ -180,7 +179,7 @@ class LogRepoTest extends TestCase
 			]
 		]);
 
-		$time = Carbon::now();
+		$time = \XF::$time;
 		$this->setTestTime($time);
 
 //		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
@@ -215,7 +214,7 @@ class LogRepoTest extends TestCase
 			]
 		]);
 
-		$time = Carbon::now();
+		$time = \XF::$time;
 		$this->setTestTime($time);
 
 //		$this->mockRepository('Hampel\LogDigest:DigestCache', function ($mock) use ($time) {
