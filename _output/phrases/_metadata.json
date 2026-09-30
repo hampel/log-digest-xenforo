@@ -151,9 +151,9 @@
     },
     "logdigest_recent_logs.txt": {
         "global_cache": false,
-        "version_id": 3000170,
-        "version_string": "3.0.1",
-        "hash": "586e909f50fd7af7babaf04f57938d26"
+        "version_id": 3010411,
+        "version_string": "3.1.4a1",
+        "hash": "125b776503e21a4871fe0b225abb1f6d"
     },
     "logdigest_reset.txt": {
         "global_cache": false,

@@ -1,1 +1,1 @@
-Recent {type}s from {board}
+Recent {type} entries from {board}

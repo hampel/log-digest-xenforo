@@ -41,6 +41,7 @@ class SendDigestTest extends TestCase
 				&& strpos($mail->getSubject(), '[Test]') === false
 				&& strpos($html, 'Something broke') !== false
 				&& strpos($html, 'Duplicate entry') !== false
+				&& preg_match('#Server error log</a> entries from#', $html)
 				&& strpos($html, 'logdigest_') === false;
 		});
 		$this->assertMailSentTimes(1);
