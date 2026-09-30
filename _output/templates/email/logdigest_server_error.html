@@ -17,7 +17,7 @@
 			<h2>{{ phrase('stack_trace') }}</h2>
 			<pre style="font-family: monospace; word-wrap: break-word; white-space: pre-wrap;">{$log.trace_string}</pre>
 			<h2>{{ phrase('request_state') }}</h2>
-			{{ dump_simple($log.request_state) }}<br />
+			<pre style="font-family: monospace; word-wrap: break-word; white-space: pre-wrap;">{$log.requestStateDump}</pre>
 		</xf:if>
 	</xf:foreach>
 <xf:else />

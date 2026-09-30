@@ -36,4 +36,13 @@ class ServerErrorLog extends AbstractDigest
 	{
 		return 'logs/server-errors';
 	}
+
+	protected function prepareLog(array $log)
+	{
+		// plain text for the template to escape - dump_simple() leaves its output unescaped when
+		// run from the CLI, which is where a cron-driven digest usually runs
+		$log['requestStateDump'] = print_r(isset($log['request_state']) ? $log['request_state'] : [], true);
+
+		return $log;
+	}
 }

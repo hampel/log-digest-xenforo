@@ -50,6 +50,9 @@ before the first test.
   faked (`SendDigestTest`), including a failed send leaving the window alone.
 - `tests/Feature/` — the two ACP tools (`ToolsControllerTest`): the `option` permission guard
   through `dispatch()`, and the test and reset actions through `callAction()`.
+- `tests/Feature/EmailEscapingTest` — every visitor-controlled field in both email templates
+  arrives escaped. Tests run under the CLI, which is where a cron-driven digest runs too, so this is
+  the case that matters: `dump_simple()` escapes nothing there.
 
 A failed send is simulated with `$this->fakesMail()->failWith(...)` (framework 5.14.0 and later),
 paired with `fakesErrors()` so the mailer's log entry stays out of the forum's real error log.

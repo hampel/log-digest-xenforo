@@ -128,6 +128,7 @@ abstract class AbstractDigest
 			$timestamp = $thisLog[$this->getTimestampColumn()];
 			$thisLog['dateFormatted'] = $this->formatDate($timestamp);
 			$thisLog['username'] = $log->User ? $log->User->username : '';
+			$thisLog = $this->prepareLog($thisLog);
 
 			$thisLog['duplicate'] = false;
 
@@ -170,6 +171,16 @@ abstract class AbstractDigest
 		}
 
 		return $filteredLogs;
+	}
+
+	/**
+	 * @param array $log one log entry as an array, as passed to the email template
+	 *
+	 * @return array the entry with anything this log type's template needs added
+	 */
+	protected function prepareLog(array $log)
+	{
+		return $log;
 	}
 
 	public function formatDate($timestamp)

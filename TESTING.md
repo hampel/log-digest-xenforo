@@ -52,9 +52,12 @@ surrounding install and its database. What it settles:
   for one with it, with no template errors or unresolved phrases; the test tool sends a test
   digest without moving the real window, rejects a bad address and reports an unknown test; reset
   clears only the type chosen.
+- `EmailEscapingTest` — usernames, messages, file names, traces, request URLs, request state and
+  the board title all arrive escaped in both digests.
 
-Two of those have been checked against a deliberately broken add-on: the failed-send test fails
-against the code before the fix, and the permission tests fail with the guard removed.
+Three of those have been checked against a deliberately broken add-on: the failed-send test fails
+against the code before the fix, the permission tests fail with the guard removed, and the escaping
+test fails against the template that dumped request state with `dump_simple()`.
 
 ## Needs a human
 
