@@ -1,13 +1,8 @@
 <?php namespace Tests\Unit;
 
 use Hampel\LogDigest\Cron\SendLogs;
-use Hampel\LogDigest\Repository\DigestCache;
 use Hampel\LogDigest\SubContainer\LogDigest;
-use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\Exception\TransportException;
-use Symfony\Component\Mailer\SentMessage;
-use Symfony\Component\Mailer\Transport\AbstractTransport;
-use Symfony\Component\Mime\RawMessage;
 use Tests\TestCase;
 use XF\Mvc\Entity\ArrayCollection;
 
@@ -55,7 +50,7 @@ class SendDigestTest extends TestCase
 	public function test_a_failed_send_leaves_last_checked_alone_so_the_next_run_retries()
 	{
 		$this->fakesErrors();
-		$this->failsMail();
+		$this->fakesMail()->failWith(new TransportException('Connection refused'));
 		$this->lastChecked(\XF::$time - 600);
 		$this->finderReturns([$this->errorLog(1, 'Something broke')]);
 
@@ -63,6 +58,7 @@ class SendDigestTest extends TestCase
 
 		// the send was attempted and failed...
 		$this->assertExceptionLogged(TransportException::class);
+		$this->assertMailNotSent();
 		// ...and the window did not move
 		$this->assertSimpleCacheEqual(\XF::$time - 600, 'Hampel/LogDigest', 'XF:ErrorLog');
 	}
@@ -185,24 +181,5 @@ class SendDigestTest extends TestCase
 		$this->mockFinder('XF:ErrorLog', function ($mock) {
 			$mock->expects('fetch')->never();
 		});
-	}
-
-	protected function failsMail()
-	{
-		$this->setConfig('enableMailQueue', false);
-		$this->swap('mailer.transport', function () {
-			return new class extends AbstractTransport {
-				protected function doSend(SentMessage $message) : void
-				{
-					throw new TransportException('Connection refused');
-				}
-
-				public function __toString() : string
-				{
-					return 'failing://';
-				}
-			};
-		});
-		$this->app()->container()->decache('mailer');
 	}
 }

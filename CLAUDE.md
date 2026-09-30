@@ -51,8 +51,8 @@ before the first test.
 - `tests/Feature/` — the two ACP tools (`ToolsControllerTest`): the `option` permission guard
   through `dispatch()`, and the test and reset actions through `callAction()`.
 
-A regression test for a failed send has to build its own failing mail transport: `fakesMail()`
-always succeeds. `SendDigestTest::failsMail()` is the pattern.
+A failed send is simulated with `$this->fakesMail()->failWith(...)` (framework 5.14.0 and later),
+paired with `fakesErrors()` so the mailer's log entry stays out of the forum's real error log.
 
 ## Architecture
 
