@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 3.2.0 (2026-09-30)
+
+* requires XenForo 2.2.0 or later; the separate PHP 7.0 requirement is dropped, as XenForo 2.2 enforces it
+* security: request state in the server error digest is now escaped - on forums running jobs from the command line, HTML in a request that caused an error could reach the digest email
+* a digest that fails to send is retried on the next run, rather than its log entries being skipped
+* the digest email header no longer adds a stray "s" after the log name
+* the reset tool ignores an unknown log type rather than raising an undefined index warning
+* the limit option explains that 0 still stops at 200 entries
+* removed three unused phrases
+
 ## 3.1.3 (2025-12-12)
 
 * run enqueuePostUpgradeCleanUp during upgrades if we're running XF2.3+
