@@ -4,7 +4,7 @@
 		"php": ">=7.0.0"
 	},
 	"require-dev": {
-		"hampel/xenforo-test-framework": "^3.0",
+		"hampel/xenforo-test-framework": "^5.0",
 		"nesbot/carbon": "^2.25"
 	},
     "autoload-dev": {
