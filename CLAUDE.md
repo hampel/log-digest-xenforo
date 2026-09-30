@@ -33,17 +33,26 @@ php ../../../../cmd.php xf-addon:export Hampel/LogDigest
 php ../../../../cmd.php xf-addon:build-release Hampel/LogDigest
 ```
 
-**The test suite needs PHP 8.1+, though the add-on itself declares PHP 7.0 and XenForo 2.1.** The
-floor comes from `hampel/xenforo-test-framework` 3.x and PHPUnit 10.5, both `require-dev` — they
+**The test suite needs PHP 8.3, though the add-on itself requires XenForo 2.2 and so PHP 7.0.**
+The floor comes from `hampel/xenforo-test-framework` 5.x and PHPUnit 12, both `require-dev` — they
 are not shipped, and `composer.json` is stripped from the release, so they constrain contributors
 rather than users. **Keep runtime code 7.0-compatible**: no typed properties, arrow functions,
 `match`, or nullsafe operators outside `tests/`.
 
-Tests boot a real `\XF\App` through the framework (`Tests\TestCase`, `$rootDir = '../../../..'`),
-so they need the surrounding install and its database, not just this directory. The real coverage
-is in `tests/Unit/`: `DigestCacheRepoTest` (the last-checked store) and `LogRepoTest`, which
-exercises `AbstractDigest::getLogs()` and `prepareLogs()` through an anonymous subclass. `tests/Feature/` holds
-only a placeholder.
+Tests boot a real `\XF\App` through the framework, so they need the surrounding install and its
+database, not just this directory. **`$addonsToLoad` in `tests/TestCase.php` is load-bearing** — it
+loads only this add-on's listeners, class extensions and vendor tree. Emptied, XenForo registers
+every installed add-on's autoloader, and one that vendors a different PHPUnit major kills the run
+before the first test.
+
+- `tests/Unit/` — the last-checked store (`DigestCacheRepoTest`), `AbstractDigest`'s fetch and
+  de-duplication (`LogRepoTest`), and the send pipeline end to end with mail and the simple cache
+  faked (`SendDigestTest`), including a failed send leaving the window alone.
+- `tests/Feature/` — the two ACP tools (`ToolsControllerTest`): the `option` permission guard
+  through `dispatch()`, and the test and reset actions through `callAction()`.
+
+A regression test for a failed send has to build its own failing mail transport: `fakesMail()`
+always succeeds. `SendDigestTest::failsMail()` is the pattern.
 
 ## Architecture
 
