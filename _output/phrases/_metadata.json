@@ -185,12 +185,6 @@
         "version_string": "2.1.2",
         "hash": "bddd64f8b9408bd57e029c1ee884dc74"
     },
-    "logdigest_test.txt": {
-        "global_cache": false,
-        "version_id": 1,
-        "version_string": "0.1.0",
-        "hash": "0cbc6611f5540bd0809a388dc95a615b"
-    },
     "logdigest_test_email_hint.txt": {
         "global_cache": false,
         "version_id": 1,
