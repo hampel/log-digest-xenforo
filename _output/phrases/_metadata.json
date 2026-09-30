@@ -103,9 +103,9 @@
     },
     "logdigest_limit_explain.txt": {
         "global_cache": false,
-        "version_id": 3000170,
-        "version_string": "3.0.1",
-        "hash": "83f30ac24eb1425854c030006867f609"
+        "version_id": 3010411,
+        "version_string": "3.1.4a1",
+        "hash": "f4b315c5598ff8d1e5fa827d9dee895f"
     },
     "logdigest_log_date.txt": {
         "global_cache": false,

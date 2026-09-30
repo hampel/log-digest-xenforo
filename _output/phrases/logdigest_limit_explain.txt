@@ -1,1 +1,1 @@
-Maximum number of log entries to include in the email. Set to 0 to include all new entries since last check.
+Maximum number of log entries to include in the email. Set to 0 to include all new entries since last check (up to 200).
