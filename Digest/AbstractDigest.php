@@ -107,6 +107,43 @@ abstract class AbstractDigest
 	}
 
 	/**
+	 * @param int $after timestamp entries must be newer than
+	 * @param int $before timestamp entries must be older than
+	 *
+	 * @return int how many log entries fall between the two
+	 */
+	public function countWaiting($after, $before)
+	{
+		$column = $this->getTimestampColumn();
+
+		return $this->app->finder($this->getEntityId())
+		                 ->where($column, '>', $after)
+		                 ->where($column, '<', $before)
+		                 ->total();
+	}
+
+	/**
+	 * @return array the settings this log type runs with: enabled, frequency, limit, deduplicate
+	 */
+	public function getSettings()
+	{
+		return [
+			'enabled' => $this->isEnabled(),
+			'frequency' => $this->frequency(),
+			'limit' => $this->limit(),
+			'deduplicate' => $this->deduplicate(),
+		];
+	}
+
+	/**
+	 * @return int seconds that must pass after one digest before the next is sent
+	 */
+	public function getFrequencySeconds()
+	{
+		return $this->frequencySeconds();
+	}
+
+	/**
 	 * @param ArrayCollection $logs collection of logs to filter
 	 * @param null $limit maximum number of logs to include
 	 *

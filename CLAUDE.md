@@ -133,6 +133,27 @@ limit is skipped rather than carried into the next email. `frequency` (minutes) 
 The recipient comes from the `logdigestEmail` option and falls back to the board's contact
 address (`Option/Email`); dates in the email use `logdigestTimeZone`.
 
+### `log-digest:config` and `log-digest:validate` report on a forum from the command line
+
+The add-on has both because it sends email unattended: a cron runs with nobody watching, and what
+it is doing is spread across the options page, the reset tool and the cron list.
+
+- **The checks live in `Service/HealthCheck`, and the commands only render them.** `run()` reads
+  and never writes or sends; `sendTestDigest()` is the one method that sends. A check that throws
+  becomes a failed row and a server error log entry, and the rest still report.
+- **`Cli/RendersReport.php` is a whole copy of a trait shared between add-ons.** Do not edit it
+  here: a fix goes into the copy it came from and is taken again. Its method names are those of
+  `hampel/console-report`.
+- **The exit code is a contract**: 0 when fine, 1 on any failure, and 2 for warnings only under
+  `--strict`. `--unattended` skips the test digest and nothing else.
+- **Every server error log row the add-on writes begins with `LogDigest: `**
+  (`HealthCheck::ERROR_LOG_PREFIX`), so anything that mirrors that log can skip its rows.
+- **A command class that cannot load stops `cmd.php` for the whole forum**, so commands extend
+  Symfony's `Command`, never define a method called `run()`, and never write a grey colour tag
+  directly. `CommandClassesTest` holds all three.
+- **Add a check to `HealthCheck` whenever the add-on comes to depend on something new** in its
+  environment — a new option that can be wrong, a file, a service.
+
 ## XenForo development data
 
 `_output/` is the development source of truth for options, phrases, templates, the cron entry,

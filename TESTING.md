@@ -12,6 +12,7 @@ person. Read it before a release.
 | listener, `app_admin_setup` | `Listener::appAdminSetup` | registers the `logdigest.test` factory used by the test tool |
 | listener, `hampel_admin_api_redaction` | `Listener::adminApiRedaction` | declares that none of the add-on's settings is a secret; the event exists only where an add-on defines it, so on most forums this never runs |
 | cron entry | `logdigestSendLogs`, every five minutes | calls `SendLogs::serverError()`, which sends every log type |
+| commands | `log-digest:config`, `log-digest:validate` | report the settings in use, and check that digests can be sent; `validate` sends a test digest unless given `--unattended` |
 | options | `logdigestEmail`, `logdigestTimeZone`, `logdigestServerError`, `logdigestAdminLog` | recipient, date display, and per-type enabled/frequency/limit/deduplicate |
 | admin navigation | `testLogDigest`, `resetLogDigest` | the two tools, under Tools |
 | templates | three email, four admin | the digests and the tool pages |
@@ -56,6 +57,14 @@ surrounding install and its database. What it settles:
   for one with it, with no template errors or unresolved phrases; the test tool sends a test
   digest without moving the real window, rejects a bad address and reports an unknown test; reset
   clears only the type chosen.
+- `CommandClassesTest` — both command classes load as XenForo commands, neither extends a base
+  class XenForo 2.2 lacks or redefines `run()`, nothing writes a grey colour tag directly, and
+  every server error log call carries the add-on's prefix.
+- `CommandsTest` — `config` prints the settings and changes nothing; `validate` gives the right
+  exit code for clean, warning and failure with and without `--strict`; `--unattended` sends
+  nothing; a test digest is sent without moving last checked, and one that cannot be sent fails
+  the run; entries waiting long after the last digest fail it; a disabled or overdue cron entry,
+  a bad time zone and a check that throws are each reported.
 - `EmailEscapingTest` — usernames, messages, file names, traces, request URLs, request state and
   the board title all arrive escaped in both digests.
 
@@ -63,7 +72,9 @@ Each of these has been checked against a deliberately broken add-on, so it is kn
 fail: the failed-send test against the code before the fix, the permission tests with the guard
 removed, the escaping test against the template that dumped request state with `dump_simple()`,
 the logging tests against the code that logged a disabled type at `info` and put the recipient in
-context, and the secrets test with an undeclared credential-like option and option member added.
+context, the secrets test with an undeclared credential-like option and option member added, and
+the command tests with a stuck digest reported as fine, the error log prefix dropped, and
+`--unattended` no longer skipping the send.
 
 ### On a disposable forum
 
