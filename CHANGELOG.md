@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 3.3.0 (2026-10-13)
+
+* requires PHP 7.4 or later
+* new command `log-digest:config` prints the recipient, each log type's settings and last digest time, and the cron entry
+* new command `log-digest:validate` checks that digests can be sent and sends a test digest; `--unattended` skips the send, and `--strict` exits 2 on warnings
+* server error log entries written by the add-on now begin `LogDigest: `
+* works with both the 4.x and 5.x versions of the Monolog Logging Service add-on
+* a disabled log type is logged at `debug` rather than `info`, and log lines no longer include the recipient's email address
+
 ## 3.2.0 (2026-09-30)
 
 * requires XenForo 2.2.0 or later; the separate PHP 7.0 requirement is dropped, as XenForo 2.2 enforces it
