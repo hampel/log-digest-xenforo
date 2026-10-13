@@ -14,6 +14,7 @@ email, and optional collapsing of identical entries. The most recent entries are
 ## Requirements
 
 - XenForo 2.2.0 or later
+- PHP 7.4 or later
 
 ## Usage
 

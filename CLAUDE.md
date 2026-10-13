@@ -33,11 +33,16 @@ php ../../../../cmd.php xf-addon:export Hampel/LogDigest
 php ../../../../cmd.php xf-addon:build-release Hampel/LogDigest
 ```
 
-**The test suite needs PHP 8.3, though the add-on itself requires XenForo 2.2 and so PHP 7.0.**
-The floor comes from `hampel/xenforo-test-framework` 5.x and PHPUnit 12, both `require-dev` — they
-are not shipped, and `composer.json` is stripped from the release, so they constrain contributors
-rather than users. **Keep runtime code 7.0-compatible**: no typed properties, arrow functions,
-`match`, or nullsafe operators outside `tests/`.
+**The test suite needs PHP 8.3, though the add-on itself requires XenForo 2.2 and PHP 7.4.** The
+suite's floor comes from `hampel/xenforo-test-framework` 5.x and PHPUnit 12, both `require-dev` —
+they are not shipped, and `composer.json` is stripped from the release, so they constrain
+contributors rather than users. **Keep runtime code 7.4-compatible**: no union types, `match`,
+nullsafe operators, named arguments or constructor promotion outside `tests/`.
+
+**The PHP 7.4 requirement is set by `Cli/RendersReport.php`**, which has a typed static property.
+That file is a whole copy shared with other add-ons and is not adapted here, so the requirement
+cannot be lowered without giving up the two commands that use it. It is declared in three places
+that have to agree: `addon.json`, `composer.json` and the README.
 
 Tests boot a real `\XF\App` through the framework, so they need the surrounding install and its
 database, not just this directory. **`$addonsToLoad` in `tests/TestCase.php` is load-bearing** — it
