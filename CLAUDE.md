@@ -82,6 +82,12 @@ changing both.
 `Listener::appAdminSetup` registers a separate `logdigest.test` factory, used only by the ACP test
 tool.
 
+`Listener::adminApiRedaction` answers the `hampel_admin_api_redaction` event with this add-on's
+secret settings — an empty list, as it has none. **An option or `config.php` key that holds a
+credential is added there in the same commit**; `SecretsDeclarationTest` fails on an undeclared
+option whose name reads like one. The event belongs to another add-on and is not a dependency:
+where nothing defines it, it never fires.
+
 ### Adding a log type is a subclass plus a list entry
 
 `Digest/AbstractDigest` holds all the logic; `ServerErrorLog` and `AdminLog` only answer its

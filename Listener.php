@@ -38,4 +38,13 @@ class Listener
 			return $c->createObject($class, $params, true);
 		}, false);
 	}
+
+	/**
+	 * Declares which of this add-on's settings are secrets. It has none: its options are a
+	 * recipient address, a time zone and two sets of digest settings, and it reads no config.php key.
+	 */
+	public static function adminApiRedaction(array &$declarations)
+	{
+		$declarations['Hampel/LogDigest'] = [];
+	}
 }

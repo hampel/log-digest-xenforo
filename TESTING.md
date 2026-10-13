@@ -10,6 +10,7 @@ person. Read it before a release.
 | class extension | `XF\Admin\Controller\Tools` | adds `actionTestLogDigest` and `actionResetLogDigest`, both behind the `option` admin permission |
 | listener, `app_setup` | `Listener::appSetup` | registers the `logDigest` and `logDigest.log` sub-containers |
 | listener, `app_admin_setup` | `Listener::appAdminSetup` | registers the `logdigest.test` factory used by the test tool |
+| listener, `hampel_admin_api_redaction` | `Listener::adminApiRedaction` | declares that none of the add-on's settings is a secret; the event exists only where an add-on defines it, so on most forums this never runs |
 | cron entry | `logdigestSendLogs`, every five minutes | calls `SendLogs::serverError()`, which sends every log type |
 | options | `logdigestEmail`, `logdigestTimeZone`, `logdigestServerError`, `logdigestAdminLog` | recipient, date display, and per-type enabled/frequency/limit/deduplicate |
 | admin navigation | `testLogDigest`, `resetLogDigest` | the two tools, under Tools |
@@ -43,6 +44,8 @@ The suite boots XenForo with only this add-on loaded (`$addonsToLoad`), so it ne
 surrounding install and its database. What it settles:
 
 - `DigestCacheRepoTest` — the last-checked store, including the pre-3.1 array shape.
+- `SecretsDeclarationTest` — the secrets declaration names only this add-on, and no option or
+  option member that reads like a credential is left undeclared.
 - `LogRepoTest` — `AbstractDigest`'s frequency window, fetch and de-duplication.
 - `SendDigestTest` — the send pipeline with mail and the simple cache faked: a digest is emailed
   with the logs in its rendered body and last checked advances; a failed send leaves last checked
