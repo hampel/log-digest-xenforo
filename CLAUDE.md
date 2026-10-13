@@ -78,6 +78,9 @@ changing both.
   Monolog channel **only if some other add-on has registered `monolog` on the container**;
   otherwise every call is a silent no-op. `Helper/Log` is the static facade the rest of the code
   calls.
+  **Its lines carry no personal data and nothing above `debug` fires on a run that did nothing** —
+  the cron runs every five minutes, so an `info` line per idle run is 288 a day. `SendDigestTest`
+  records the logger and holds both.
 
 `Listener::appAdminSetup` registers a separate `logdigest.test` factory, used only by the ACP test
 tool.

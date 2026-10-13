@@ -50,7 +50,8 @@ surrounding install and its database. What it settles:
 - `SendDigestTest` — the send pipeline with mail and the simple cache faked: a digest is emailed
   with the logs in its rendered body and last checked advances; a failed send leaves last checked
   alone; a disabled type, a type inside its frequency and a type with no new logs send nothing;
-  reset; the cron entry; the fallback to the board's contact address.
+  reset; the cron entry; the fallback to the board's contact address; a disabled type is logged
+  only at `debug`, and no log line carries the recipient's address.
 - `ToolsControllerTest` — both tools refuse an admin without the `option` permission and render
   for one with it, with no template errors or unresolved phrases; the test tool sends a test
   digest without moving the real window, rejects a bad address and reports an unknown test; reset
@@ -58,22 +59,44 @@ surrounding install and its database. What it settles:
 - `EmailEscapingTest` — usernames, messages, file names, traces, request URLs, request state and
   the board title all arrive escaped in both digests.
 
-Three of those have been checked against a deliberately broken add-on: the failed-send test fails
-against the code before the fix, the permission tests fail with the guard removed, and the escaping
-test fails against the template that dumped request state with `dump_simple()`.
+Each of these has been checked against a deliberately broken add-on, so it is known to be able to
+fail: the failed-send test against the code before the fix, the permission tests with the guard
+removed, the escaping test against the template that dumped request state with `dump_simple()`,
+the logging tests against the code that logged a disabled type at `info` and put the recipient in
+context, and the secrets test with an undeclared credential-like option and option member added.
+
+### On a disposable forum
+
+These need a forum that can be thrown away, because they write to the server error log, stop the
+mail server, or install a release zip. Each runs the digest from the command line, which is how a
+forum running its jobs from a system cron runs it. Run them before a release, against the zip.
+
+- **A realistic error log.** With `Hampel/Seeder` installed, `seeder:run ErrorLog -p errors=500`
+  writes a log with recurring faults. Work out from the table what the digest should hold — the
+  newest 200 entries, duplicates collapsed on the comparison fields, stopping at the limit — then
+  run the cron and compare the log ids linked in the email. Last run on XenForo 2.3.13: the same
+  ten ids in the same order, five duplicates, no markup inside any `<pre>` block. Clean the batch
+  afterwards and check the log is back to what it held before.
+- **A mail failure and its recovery.** Reset a log type, stop the mail server, run the cron: the
+  send fails, XenForo logs the failure, and last checked does not move. Start the mail server and
+  run the cron again: the held entries arrive, with the failure entry first, and last checked
+  advances.
+- **The upgrade from the last published release.** Install that release's zip, set a last-checked
+  value, upgrade to the new zip, and run the job queue. The upgrade must report
+  `Importing add-on data`; afterwards the pages render, the error log is empty, the phrase count
+  matches `_output/phrases/`, and the last-checked value is unchanged. There are no upgrade steps.
+- **XenForo 2.2, on the oldest PHP available.** Install the zip, run `php -l` over every file under
+  the add-on's directory, save two identical error log entries and one whose request state holds
+  markup, and run the cron. Last run on XenForo 2.2.19 with PHP 7.4.33: every file passed, and the
+  digest held two entries and one duplicate with the markup escaped.
+
+**The admin log digest has no equivalent of the first check.** It shares all its logic with the
+server error digest and has only been run against a single hand-built entry.
 
 ## Needs a human
 
 - **The email in a real mail client** — its layout, and that the links open the right log in the
   control panel of the right board.
-- **A real mail failure and its recovery**, end to end: the suite fakes the transport, so that
-  the next cron run after the mail server comes back delivers the held logs is shown only in part.
-- **The upgrade from the last published release**, on a forum installed from zips rather than a
-  development checkout. There are no upgrade steps, so the risk is low; on XenForo 2.3 the upgrade
-  queues XenForo's post-upgrade file clean-up.
-- **XenForo 2.2.** The declared floor is 2.2.0, and the suite runs against whichever install it
-  is in. Every core call has been checked against 2.2 source; an install and a cron run on 2.2
-  has not been re-done for this release.
 - **The tool pages as a page** — the navigation entries under Tools, and the page around the
   template. The suite renders the template, not the page.
 - **The test tool's "generate a test exception" option** writes a real entry to the server error
