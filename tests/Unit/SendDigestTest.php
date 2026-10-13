@@ -136,6 +136,65 @@ class SendDigestTest extends TestCase
 		$this->app()->get('logDigest')->sendAll();
 	}
 
+	public function test_a_disabled_log_type_is_only_mentioned_at_debug()
+	{
+		$this->fakesMail();
+		$records = $this->recordsLogCalls();
+		$this->setOption('logdigestServerError', ['enabled' => false, 'frequency' => 5, 'limit' => 10, 'deduplicate' => true]);
+
+		$this->logDigest()->send(self::DIGEST, self::EMAIL);
+
+		$this->assertSame(['debug'], array_column($records->getArrayCopy(), 'level'));
+	}
+
+	public function test_a_sent_digest_is_logged_without_the_recipient_address()
+	{
+		$records = $this->recordsLogCalls();
+		$this->fakesMail();
+		$this->finderReturns([$this->errorLog(1, 'Something broke')]);
+
+		$this->logDigest()->send(self::DIGEST, self::EMAIL);
+
+		$this->assertSame(['info'], array_column($records->getArrayCopy(), 'level'));
+		$this->assertStringNotContainsString(self::EMAIL, json_encode($records->getArrayCopy()));
+	}
+
+	public function test_a_failed_send_is_logged_without_the_recipient_address()
+	{
+		$records = $this->recordsLogCalls();
+		$this->fakesErrors();
+		$this->fakesMail()->failWith(new TransportException('Connection refused'));
+		$this->finderReturns([$this->errorLog(1, 'Something broke')]);
+
+		$this->logDigest()->send(self::DIGEST, self::EMAIL);
+
+		$this->assertSame(['warning'], array_column($records->getArrayCopy(), 'level'));
+		$this->assertStringNotContainsString(self::EMAIL, json_encode($records->getArrayCopy()));
+	}
+
+	/**
+	 * Replaces the add-on's logger with one that records each call.
+	 *
+	 * @return \ArrayObject
+	 */
+	protected function recordsLogCalls()
+	{
+		$records = new \ArrayObject();
+
+		$this->swap('logDigest.log', function () use ($records) {
+			$mock = \Mockery::mock(\Hampel\LogDigest\SubContainer\Log::class);
+			$mock->allows('log')->andReturnUsing(function ($level, $message, array $context = []) use ($records) {
+				$records[] = compact('level', 'message', 'context');
+
+				return true;
+			});
+
+			return $mock;
+		});
+
+		return $records;
+	}
+
 	/**
 	 * @return LogDigest
 	 */

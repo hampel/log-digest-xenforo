@@ -65,7 +65,7 @@ class LogDigest extends AbstractSubContainer
 		// stop if this log type is not enabled
 		if (!$digest->isEnabled())
 		{
-			Log::info("Skipping sending disabled log", ['class' => $class]);
+			Log::debug("Skipping sending disabled log", ['class' => $class]);
 
 			return;
 		}
@@ -83,12 +83,12 @@ class LogDigest extends AbstractSubContainer
 				// leave last checked alone on failure, so the next run retries the same logs
 				if (!$digest->send($filteredLogs, $email))
 				{
-					Log::warning("Failed to send logs", ['class' => $class, 'email' => $email, 'count' => $count]);
+					Log::warning("Failed to send logs", ['class' => $class, 'count' => $count]);
 
 					return;
 				}
 
-				Log::info("Sent logs", ['class' => $class, 'email' => $email, 'count' => $count]);
+				Log::info("Sent logs", ['class' => $class, 'count' => $count]);
 
 				$digest->updateLastChecked(\XF::$time);
 			}
