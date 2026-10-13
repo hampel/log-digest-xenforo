@@ -101,6 +101,13 @@ forum running its jobs from a system cron runs it. Run them before a release, ag
   markup, and run the cron. Last run on XenForo 2.2.19 with PHP 7.4.33: every file passed, and the
   digest held two entries and one duplicate with the markup escaped.
 
+- **Both commands, on XenForo 2.2.** Run `log-digest:config` and `log-digest:validate`, then
+  provoke each outcome and read the exit code unpiped: disable every log type (0, and 2 with
+  `--strict`), stop the mail server with an entry in the log (1), rename `xf_cron_entry` for one
+  run so a check throws (1, and a server error log row beginning `LogDigest: `), and set a last
+  digest time two hours back with an entry one hour old (1). Last run on XenForo 2.2.19 with PHP
+  7.4.33: each as stated.
+
 **The admin log digest has no equivalent of the first check.** It shares all its logic with the
 server error digest and has only been run against a single hand-built entry.
 
