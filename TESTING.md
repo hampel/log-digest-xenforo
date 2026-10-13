@@ -28,7 +28,9 @@ person. Read it before a release.
   With mail broken for good, each run retries and XenForo logs each failure as a new error entry,
   which then joins the retry.
 - **Logging goes to a `logdigest` Monolog channel only when another add-on has registered
-  `monolog` on the container.** Without one, every log call is a no-op by design.
+  `monolog` on the container.** Without one, every log call goes to a null logger by design. The
+  logging add-on has had two names for "give me a channel", and which one exists depends on the
+  version a forum runs.
 - **`XF\Admin\Controller\Tools` is a commonly extended controller**, so on a real forum this
   add-on is usually one link in a chain of extensions.
 - **The links in the email are canonical admin URLs**, so they are only as right as the board URL
@@ -48,6 +50,9 @@ surrounding install and its database. What it settles:
 - `SecretsDeclarationTest` — the secrets declaration names only this add-on, and no option or
   option member that reads like a credential is left undeclared.
 - `LogRepoTest` — `AbstractDigest`'s frequency window, fetch and de-duplication.
+- `LoggerTest` — with no logging add-on every level goes to a null logger; with one, the channel
+  is asked for by the current name where it exists and by the older name where it does not, and
+  the record arrives.
 - `SendDigestTest` — the send pipeline with mail and the simple cache faked: a digest is emailed
   with the logs in its rendered body and last checked advances; a failed send leaves last checked
   alone; a disabled type, a type inside its frequency and a type with no new logs send nothing;
@@ -74,7 +79,8 @@ removed, the escaping test against the template that dumped request state with `
 the logging tests against the code that logged a disabled type at `info` and put the recipient in
 context, the secrets test with an undeclared credential-like option and option member added, and
 the command tests with a stuck digest reported as fine, the error log prefix dropped, and
-`--unattended` no longer skipping the send.
+`--unattended` no longer skipping the send, and the logger tests against the code that returned
+no logger without a logging add-on and asked only by the older name.
 
 ### On a disposable forum
 

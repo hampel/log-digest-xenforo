@@ -42,14 +42,9 @@ class Log
 		return self::log('debug', $message, $context);
 	}
 
-	public static function log($level, $message, array $context = array())
+	public static function log($level, $message, array $context = array()): void
 	{
-		$logger = self::getLogger();
-
-		if (isset($logger))
-		{
-			return $logger->log($level, $message, $context);
-		}
+		self::getLogger()->log($level, $message, $context);
 	}
 
 	/**

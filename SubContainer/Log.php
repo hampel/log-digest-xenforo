@@ -10,10 +10,16 @@ class Log extends AbstractSubContainer
 
 		$container['log'] = function($c)
 		{
-			if ($this->parent->offsetExists('monolog'))
+			if (!$this->parent->offsetExists('monolog'))
 			{
-				return $this->parent['monolog']->newChannel('logdigest');
+				// no logging add-on is installed: every call goes nowhere
+				return new \Psr\Log\NullLogger();
 			}
+
+			$monolog = $this->parent['monolog'];
+
+			// channel() arrived in Monolog 5.0; newChannel() is the 4.x name, deprecated in 5.x
+			return method_exists($monolog, 'channel') ? $monolog->channel('logdigest') : $monolog->newChannel('logdigest');
 		};
 	}
 
@@ -62,19 +68,11 @@ class Log extends AbstractSubContainer
 	 * @param $level
 	 * @param $message
 	 * @param array $context
-	 *
-	 * @return bool
 	 */
-	public function log($level, $message, array $context = array())
+	public function log($level, $message, array $context = array()): void
 	{
-		/** @var \Monolog\Logger $logger */
+		/** @var \Psr\Log\LoggerInterface $logger */
 		$logger = $this->container['log'];
-		if ($logger)
-		{
-			return $logger->log($level, $message, $context);
-		}
-
-		// logger isn't set up
-		return false;
+		$logger->log($level, $message, $context);
 	}
 }

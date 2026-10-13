@@ -52,7 +52,8 @@ before the first test.
 
 - `tests/Unit/` — the last-checked store (`DigestCacheRepoTest`), `AbstractDigest`'s fetch and
   de-duplication (`LogRepoTest`), and the send pipeline end to end with mail and the simple cache
-  faked (`SendDigestTest`), including a failed send leaving the window alone.
+  faked (`SendDigestTest`), including a failed send leaving the window alone. `LoggerTest` covers
+  where log lines go with and without a logging add-on.
 - `tests/Feature/` — the two ACP tools (`ToolsControllerTest`): the `option` permission guard
   through `dispatch()`, and the test and reset actions through `callAction()`.
 - `tests/Feature/EmailEscapingTest` — every visitor-controlled field in both email templates
@@ -81,8 +82,12 @@ changing both.
   type is enabled, fetches, prepares, mails and then advances the last-checked time.
 - **`logDigest.log`** (`SubContainer/Log`) — a PSR-3-shaped wrapper that writes to a `logdigest`
   Monolog channel **only if some other add-on has registered `monolog` on the container**;
-  otherwise every call is a silent no-op. `Helper/Log` is the static facade the rest of the code
-  calls.
+  otherwise its logger is a `Psr\Log\NullLogger`, so it is never `null` and nothing checks for
+  one. `Helper/Log` is the static facade the rest of the code calls.
+  **The channel is asked for with `channel()` where the logging add-on has it and `newChannel()`
+  where it does not** — the first is that add-on's 5.x name, the second its 4.x one, and a forum may
+  run either. Keep the channel name: a forum's own configuration can target it. `LoggerTest`
+  holds all three paths with stand-ins, because `$addonsToLoad` keeps the real add-on out.
   **Its lines carry no personal data and nothing above `debug` fires on a run that did nothing** —
   the cron runs every five minutes, so an `info` line per idle run is 288 a day. `SendDigestTest`
   records the logger and holds both.
